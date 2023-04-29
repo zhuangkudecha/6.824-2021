@@ -1,0 +1,1614 @@
+warning: only one CPU, which may conceal locking bugs
+000028 CLNT S0 start
+000030 CLNT S1 start
+000032 CLNT S2 start
+Test (2A): initial election ...
+002066 TIMR S0 Follower -> Candidate at time : 1681830227
+002067 CLNT S0 election timeouts restart a new election now - lastAct = 203 ms
+002067 INFO S0 new timeouts 247 ms
+002069 VOTE S0 send request to S1 for vote
+002070 VOTE S0 send request to S2 for vote
+002072 CLNT S2 Handle RequestVote, CandidatesId0 Term1 CurrentTerm0 LastLogIndex-1 LastLogTerm-1 votedFor-1
+002072 CLNT S2 voted to S0
+002073 VOTE S0 got majority votes and becomes Leader Spend 0 millseconds
+002074 CLNT S1 Handle RequestVote, CandidatesId0 Term1 CurrentTerm0 LastLogIndex-1 LastLogTerm-1 votedFor-1
+002075 CLNT S1 voted to S0
+002115 TIMR S0 Leader, checking heartbeats
+002120 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+002120 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+002121 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+002123 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+002123 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+002124 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+002632 TIMR S0 Leader, checking heartbeats
+002636 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+002636 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+002638 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+002641 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+002641 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+002643 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+003160 TIMR S0 Leader, checking heartbeats
+003164 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+003164 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+003166 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+003167 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+003167 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+003168 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+003683 TIMR S0 Leader, checking heartbeats
+003686 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+003687 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+003688 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+003689 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+003689 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+003690 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+004228 TIMR S0 Leader, checking heartbeats
+004231 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+004231 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+004231 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+004233 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+004233 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+004234 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+004795 TIMR S0 Leader, checking heartbeats
+004798 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+004798 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+004799 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+004800 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+004801 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+004802 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+005329 TIMR S0 Leader, checking heartbeats
+005332 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+005332 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+005334 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+005336 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+005336 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+005337 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+005856 TIMR S0 Leader, checking heartbeats
+005859 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+005859 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+005861 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+005862 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+005862 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+005864 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+006385 TIMR S0 Leader, checking heartbeats
+006388 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+006388 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+006389 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+006391 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+006391 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+006391 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+006917 TIMR S0 Leader, checking heartbeats
+006921 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+006922 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+006923 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+006925 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+006925 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+006926 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+007448 TIMR S0 Leader, checking heartbeats
+007453 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+007453 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+007454 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+007456 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+007456 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+007458 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+007981 TIMR S0 Leader, checking heartbeats
+007984 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+007984 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+007985 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+007986 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+007986 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+007987 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+008516 TIMR S0 Leader, checking heartbeats
+008521 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+008521 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+008523 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+008525 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+008525 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+008526 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+009044 TIMR S0 Leader, checking heartbeats
+009047 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+009048 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+009051 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+009051 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+009053 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+009057 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+009575 TIMR S0 Leader, checking heartbeats
+009578 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+009578 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+009579 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+009581 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+009581 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+009582 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+010108 TIMR S0 Leader, checking heartbeats
+010111 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+010111 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+010112 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+010114 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+010114 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+010115 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+010640 TIMR S0 Leader, checking heartbeats
+010644 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+010645 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+010646 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+010647 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+010647 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+010651 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+011202 TIMR S0 Leader, checking heartbeats
+011206 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+011206 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+011227 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+011227 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+011228 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+011246 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+011749 TIMR S0 Leader, checking heartbeats
+011753 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+011753 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+011754 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+011756 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+011756 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+011757 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+012280 TIMR S0 Leader, checking heartbeats
+012284 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+012284 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+012285 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+012287 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+012287 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+012296 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+012803 TIMR S0 Leader, checking heartbeats
+012806 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+012807 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+012808 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+012810 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+012810 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+012810 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+013381 TIMR S0 Leader, checking heartbeats
+013385 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+013385 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+013386 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+013388 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+013388 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+013389 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+013926 TIMR S0 Leader, checking heartbeats
+013930 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+013930 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+013931 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+013934 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+013934 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+013935 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+014486 TIMR S0 Leader, checking heartbeats
+014491 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+014491 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+014492 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+014496 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+014496 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+014497 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+015021 TIMR S0 Leader, checking heartbeats
+015025 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+015025 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+015026 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+015027 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+015027 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+015028 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+015535 TIMR S0 Leader, checking heartbeats
+015538 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+015538 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+015540 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+015542 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+015542 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+015542 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+016110 TIMR S0 Leader, checking heartbeats
+016114 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+016114 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+016115 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+016117 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+016117 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+016118 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+016678 TIMR S0 Leader, checking heartbeats
+016684 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+016684 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+016685 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+016686 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+016686 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+016687 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+017230 TIMR S0 Leader, checking heartbeats
+017233 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+017233 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+017234 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+017235 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+017235 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+017236 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+017781 TIMR S0 Leader, checking heartbeats
+017786 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+017786 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+017787 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+017790 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+017790 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+017791 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+018332 TIMR S0 Leader, checking heartbeats
+018338 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+018338 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+018342 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+018344 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+018344 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+018345 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+018864 TIMR S0 Leader, checking heartbeats
+018868 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+018868 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+018869 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+018872 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+018872 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+018874 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+019406 TIMR S0 Leader, checking heartbeats
+019410 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+019410 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+019411 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+019412 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+019412 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+019413 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+019945 TIMR S0 Leader, checking heartbeats
+019949 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+019949 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+019949 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+019950 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+019950 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+019952 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+020506 TIMR S0 Leader, checking heartbeats
+020509 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+020510 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+020513 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+020515 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+020515 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+020516 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+021025 TIMR S0 Leader, checking heartbeats
+021029 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+021029 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+021031 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+021032 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+021032 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+021033 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+021578 TIMR S0 Leader, checking heartbeats
+021581 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+021582 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+021583 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+021584 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+021584 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+021585 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+022121 TIMR S0 Leader, checking heartbeats
+022124 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+022124 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+022126 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+022127 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+022127 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+022128 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+022643 TIMR S0 Leader, checking heartbeats
+022647 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+022648 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+022649 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+022650 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+022650 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+022651 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+023177 TIMR S0 Leader, checking heartbeats
+023183 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+023183 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+023186 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+023189 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+023189 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+023191 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+023748 TIMR S0 Leader, checking heartbeats
+023751 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+023751 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+023752 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+023753 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+023753 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+023755 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+024295 TIMR S0 Leader, checking heartbeats
+024299 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+024299 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+024301 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+024302 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+024302 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+024303 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+024833 TIMR S0 Leader, checking heartbeats
+024837 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+024837 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+024838 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+024850 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+024850 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+024852 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+025386 TIMR S0 Leader, checking heartbeats
+025389 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+025390 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+025391 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+025393 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+025393 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+025394 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+025925 TIMR S0 Leader, checking heartbeats
+025929 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+025929 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+025931 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+025932 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+025932 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+025933 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+026470 TIMR S0 Leader, checking heartbeats
+026474 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+026474 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+026475 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+026477 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+026477 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+026483 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+027065 TIMR S0 Leader, checking heartbeats
+027068 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+027069 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+027070 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+027071 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+027071 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+027072 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+027594 TIMR S0 Leader, checking heartbeats
+027598 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+027598 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+027601 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+027603 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+027603 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+027604 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+028163 TIMR S0 Leader, checking heartbeats
+028169 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+028169 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+028170 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+028171 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+028172 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+028172 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+028692 TIMR S0 Leader, checking heartbeats
+028698 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+028698 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+028699 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+028700 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+028701 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+028713 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+029222 TIMR S0 Leader, checking heartbeats
+029227 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+029227 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+029228 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+029230 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+029230 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+029231 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+029786 TIMR S0 Leader, checking heartbeats
+029789 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+029789 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+029790 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+029791 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+029791 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+029792 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+  ... Passed --   3.0  3  106   31624    0
+030302 CLNT S0 start
+030303 CLNT S1 start
+030304 CLNT S2 start
+Test (2A): election after network failure ...
+032328 TIMR S0 Follower -> Candidate at time : 1681830230
+032329 CLNT S0 election timeouts restart a new election now - lastAct = 202 ms
+032329 INFO S0 new timeouts 231 ms
+032330 VOTE S0 send request to S1 for vote
+032330 VOTE S0 send request to S2 for vote
+032332 CLNT S2 Handle RequestVote, CandidatesId0 Term1 CurrentTerm0 LastLogIndex-1 LastLogTerm-1 votedFor-1
+032333 CLNT S2 voted to S0
+032334 VOTE S0 got majority votes and becomes Leader Spend 0 millseconds
+032335 CLNT S1 Handle RequestVote, CandidatesId0 Term1 CurrentTerm0 LastLogIndex-1 LastLogTerm-1 votedFor-1
+032335 CLNT S1 voted to S0
+032421 TIMR S0 Leader, checking heartbeats
+032425 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+032425 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+032428 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+032430 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+032430 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+032431 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+032973 TIMR S0 Leader, checking heartbeats
+032978 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+032978 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+032980 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+032981 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+032981 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+032983 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+033508 TIMR S0 Leader, checking heartbeats
+033511 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+033512 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+033513 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+033514 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+033514 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+033515 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+034052 TIMR S0 Leader, checking heartbeats
+034056 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+034057 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+034058 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+034060 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+034060 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+034061 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+034624 TIMR S0 Leader, checking heartbeats
+034628 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+034628 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+034630 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+034632 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+034632 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm1 role=[Follower]
+034633 LEAD S0 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+035192 TIMR S0 Leader, checking heartbeats
+035735 TIMR S0 Leader, checking heartbeats
+036265 TIMR S0 Leader, checking heartbeats
+036807 TIMR S0 Leader, checking heartbeats
+036878 TIMR S2 Follower -> Candidate at time : 1681830230
+036879 CLNT S2 election timeouts restart a new election now - lastAct = 225 ms
+036881 INFO S2 new timeouts 203 ms
+036884 VOTE S2 send request to S0 for vote
+036885 VOTE S2 send request to S1 for vote
+036887 CLNT S1 Handle RequestVote, CandidatesId2 Term2 CurrentTerm1 LastLogIndex-1 LastLogTerm-1 votedFor0
+036890 CLNT S1 voted to S2
+036891 VOTE S2 got majority votes and becomes Leader Spend 0 millseconds
+036963 TIMR S2 Leader, checking heartbeats
+036969 LOG1 S1 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+036969 LOG1 S1 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+036972 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+037342 TIMR S0 Leader, checking heartbeats
+037499 TIMR S2 Leader, checking heartbeats
+037503 LOG1 S1 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+037503 LOG1 S1 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+037505 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+037922 TIMR S0 Leader, checking heartbeats
+038064 TIMR S2 Leader, checking heartbeats
+038068 LOG1 S1 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+038068 LOG1 S1 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+038069 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+038449 TIMR S0 Leader, checking heartbeats
+038605 TIMR S2 Leader, checking heartbeats
+038614 LOG1 S1 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+038614 LOG1 S1 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+038656 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+038959 TIMR S0 Leader, checking heartbeats
+039128 TIMR S2 Leader, checking heartbeats
+039134 LOG1 S1 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+039135 LOG1 S1 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+039136 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+039508 TIMR S0 Leader, checking heartbeats
+039653 TIMR S2 Leader, checking heartbeats
+039657 LOG1 S1 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+039658 LOG1 S1 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+039659 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+040063 TIMR S0 Leader, checking heartbeats
+040066 LOG1 S2 Handle AppendEntries, LeaderId0 Term1 CurrentTerm2 role=[Leader]
+040066 LOG1 S2 Return AppendEntries, LeaderId0 Term1 CurrentTerm2 role=[Leader]
+040068 LEAD S0 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Follower]
+040070 LOG1 S1 Handle AppendEntries, LeaderId0 Term1 CurrentTerm2 role=[Follower]
+040071 LOG1 S1 Return AppendEntries, LeaderId0 Term1 CurrentTerm2 role=[Follower]
+040072 LEAD S0 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Follower]
+040176 TIMR S2 Leader, checking heartbeats
+040180 LOG1 S1 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+040180 LOG1 S1 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+040181 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+040183 LOG1 S0 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+040183 LOG1 S0 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+040183 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+040709 TIMR S2 Leader, checking heartbeats
+040713 LOG1 S1 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+040713 LOG1 S1 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+040715 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+040716 LOG1 S0 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+040716 LOG1 S0 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+040717 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+041246 TIMR S2 Leader, checking heartbeats
+041250 LOG1 S1 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+041250 LOG1 S1 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+041252 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+041253 LOG1 S0 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+041253 LOG1 S0 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+041254 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+041774 TIMR S2 Leader, checking heartbeats
+041778 LOG1 S1 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+041779 LOG1 S1 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+041780 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+041781 LOG1 S0 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+041781 LOG1 S0 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+041782 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+042305 TIMR S2 Leader, checking heartbeats
+042309 LOG1 S1 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+042309 LOG1 S1 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+042310 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+042311 LOG1 S0 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+042311 LOG1 S0 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+042312 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+042836 TIMR S2 Leader, checking heartbeats
+042843 LOG1 S1 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+042843 LOG1 S1 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+042844 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+042846 LOG1 S0 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+042846 LOG1 S0 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+042847 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+043363 TIMR S2 Leader, checking heartbeats
+043366 LOG1 S1 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+043366 LOG1 S1 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+043367 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+043368 LOG1 S0 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+043368 LOG1 S0 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+043369 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+043905 TIMR S2 Leader, checking heartbeats
+043909 LOG1 S1 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+043910 LOG1 S1 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+043912 LOG1 S0 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+043912 LOG1 S0 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+043914 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+043916 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+044431 TIMR S2 Leader, checking heartbeats
+044434 LOG1 S1 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+044434 LOG1 S1 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+044436 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+044438 LOG1 S0 Handle AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+044438 LOG1 S0 Return AppendEntries, LeaderId2 Term2 CurrentTerm2 role=[Follower]
+044441 LEAD S2 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+044965 TIMR S2 Leader, checking heartbeats
+045528 TIMR S2 Leader, checking heartbeats
+046046 TIMR S2 Leader, checking heartbeats
+046554 TIMR S0 Follower -> Candidate at time : 1681830231
+046555 CLNT S0 election timeouts restart a new election now - lastAct = 211 ms
+046555 INFO S0 new timeouts 227 ms
+046556 VOTE S0 send request to S1 for vote
+046556 VOTE S0 send request to S2 for vote
+046558 TIMR S1 Follower -> Candidate at time : 1681830231
+046558 CLNT S1 election timeouts restart a new election now - lastAct = 212 ms
+046558 INFO S1 new timeouts 241 ms
+046558 VOTE S1 send request to S0 for vote
+046558 VOTE S1 send request to S2 for vote
+046561 TIMR S2 Leader, checking heartbeats
+047100 TIMR S2 Leader, checking heartbeats
+047637 TIMR S2 Leader, checking heartbeats
+048155 TIMR S2 Leader, checking heartbeats
+048687 TIMR S2 Leader, checking heartbeats
+049090 CLNT S0 election timeouts restart a new election now - lastAct = 253 ms
+049090 INFO S0 new timeouts 164 ms
+049091 VOTE S0 send request to S1 for vote
+049091 VOTE S0 send request to S2 for vote
+049095 CLNT S1 election timeouts restart a new election now - lastAct = 253 ms
+049095 INFO S1 new timeouts 284 ms
+049095 VOTE S1 send request to S0 for vote
+049095 VOTE S1 send request to S2 for vote
+049214 TIMR S2 Leader, checking heartbeats
+049757 TIMR S2 Leader, checking heartbeats
+050311 TIMR S2 Leader, checking heartbeats
+050866 TIMR S2 Leader, checking heartbeats
+051122 CLNT S0 election timeouts restart a new election now - lastAct = 203 ms
+051123 INFO S0 new timeouts 178 ms
+051124 VOTE S0 send request to S1 for vote
+051124 VOTE S0 send request to S2 for vote
+051394 TIMR S2 Leader, checking heartbeats
+051922 TIMR S2 Leader, checking heartbeats
+052164 CLNT S1 election timeouts restart a new election now - lastAct = 306 ms
+052165 INFO S1 new timeouts 334 ms
+052166 VOTE S1 send request to S0 for vote
+052166 VOTE S1 send request to S2 for vote
+052518 TIMR S2 Leader, checking heartbeats
+053043 TIMR S2 Leader, checking heartbeats
+053183 CLNT S0 election timeouts restart a new election now - lastAct = 206 ms
+053184 INFO S0 new timeouts 150 ms
+053185 VOTE S0 send request to S1 for vote
+053185 VOTE S0 send request to S2 for vote
+053567 TIMR S2 Leader, checking heartbeats
+054115 TIMR S2 Leader, checking heartbeats
+054665 TIMR S2 Leader, checking heartbeats
+054709 CLNT S0 election timeouts restart a new election now - lastAct = 152 ms
+054710 INFO S0 new timeouts 152 ms
+054710 VOTE S0 send request to S1 for vote
+054713 VOTE S0 send request to S2 for vote
+055259 TIMR S2 Leader, checking heartbeats
+055725 CLNT S1 election timeouts restart a new election now - lastAct = 356 ms
+055726 INFO S1 new timeouts 310 ms
+055726 VOTE S1 send request to S0 for vote
+055727 VOTE S1 send request to S2 for vote
+055787 TIMR S2 Leader, checking heartbeats
+056313 TIMR S2 Leader, checking heartbeats
+056745 CLNT S0 election timeouts restart a new election now - lastAct = 203 ms
+056746 INFO S0 new timeouts 334 ms
+056746 VOTE S0 send request to S1 for vote
+056747 VOTE S0 send request to S2 for vote
+056850 TIMR S2 Leader, checking heartbeats
+057366 TIMR S2 Leader, checking heartbeats
+057912 TIMR S2 Leader, checking heartbeats
+058440 TIMR S2 Leader, checking heartbeats
+058980 TIMR S2 Leader, checking heartbeats
+059295 CLNT S1 election timeouts restart a new election now - lastAct = 356 ms
+059296 INFO S1 new timeouts 176 ms
+059297 VOTE S1 send request to S0 for vote
+059297 VOTE S1 send request to S2 for vote
+059500 TIMR S2 Leader, checking heartbeats
+060020 TIMR S2 Leader, checking heartbeats
+060309 CLNT S0 election timeouts restart a new election now - lastAct = 356 ms
+060309 INFO S0 new timeouts 167 ms
+060310 VOTE S0 send request to S1 for vote
+060310 VOTE S0 send request to S2 for vote
+060564 TIMR S2 Leader, checking heartbeats
+061101 TIMR S2 Leader, checking heartbeats
+061324 CLNT S1 election timeouts restart a new election now - lastAct = 202 ms
+061324 INFO S1 new timeouts 251 ms
+061325 VOTE S1 send request to S0 for vote
+061325 VOTE S1 send request to S2 for vote
+061620 TIMR S2 Leader, checking heartbeats
+062135 TIMR S2 Leader, checking heartbeats
+062338 CLNT S0 election timeouts restart a new election now - lastAct = 202 ms
+062338 INFO S0 new timeouts 189 ms
+062339 VOTE S0 send request to S1 for vote
+062339 VOTE S0 send request to S2 for vote
+062645 TIMR S2 Leader, checking heartbeats
+063179 TIMR S2 Leader, checking heartbeats
+063736 TIMR S2 Leader, checking heartbeats
+063870 CLNT S1 election timeouts restart a new election now - lastAct = 254 ms
+063871 INFO S1 new timeouts 301 ms
+063872 VOTE S1 send request to S0 for vote
+063872 VOTE S1 send request to S2 for vote
+064291 TIMR S2 Leader, checking heartbeats
+064380 CLNT S0 election timeouts restart a new election now - lastAct = 204 ms
+064380 INFO S0 new timeouts 238 ms
+064381 VOTE S0 send request to S1 for vote
+064382 VOTE S0 send request to S2 for vote
+064862 TIMR S2 Leader, checking heartbeats
+065401 TIMR S2 Leader, checking heartbeats
+065937 TIMR S2 Leader, checking heartbeats
+066465 TIMR S2 Leader, checking heartbeats
+066916 CLNT S1 election timeouts restart a new election now - lastAct = 304 ms
+066917 INFO S1 new timeouts 232 ms
+066918 VOTE S1 send request to S0 for vote
+066918 VOTE S1 send request to S2 for vote
+066920 CLNT S0 Handle RequestVote, CandidatesId1 Term10 CurrentTerm11 LastLogIndex-1 LastLogTerm-1 votedFor0
+066921 CLNT S0 Refuse vote S1 cause term is older than me
+066922 CLNT S0 election timeouts restart a new election now - lastAct = 254 ms
+066922 INFO S0 new timeouts 179 ms
+066922 VOTE S0 send request to S1 for vote
+066922 VOTE S0 send request to S2 for vote
+066924 CLNT S1 Handle RequestVote, CandidatesId0 Term12 CurrentTerm11 LastLogIndex-1 LastLogTerm-1 votedFor-1
+066924 CLNT S1 voted to S0
+066924 VOTE S0 got majority votes and becomes Leader Spend 0 millseconds
+066946 TIMR S0 Leader, checking heartbeats
+066949 LOG1 S1 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+066949 LOG1 S1 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+066950 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+067001 TIMR S2 Leader, checking heartbeats
+067460 TIMR S0 Leader, checking heartbeats
+067464 LOG1 S1 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+067465 LOG1 S1 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+067466 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+067529 TIMR S2 Leader, checking heartbeats
+067979 TIMR S0 Leader, checking heartbeats
+067984 LOG1 S1 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+067984 LOG1 S1 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+067985 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+068038 TIMR S2 Leader, checking heartbeats
+068500 TIMR S0 Leader, checking heartbeats
+068504 LOG1 S1 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+068504 LOG1 S1 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+068505 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+068600 TIMR S2 Leader, checking heartbeats
+069013 TIMR S0 Leader, checking heartbeats
+069016 LOG1 S1 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+069016 LOG1 S1 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+069017 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+069123 TIMR S2 Leader, checking heartbeats
+069543 TIMR S0 Leader, checking heartbeats
+069546 LOG1 S2 Handle AppendEntries, LeaderId0 Term12 CurrentTerm2 role=[Leader]
+069546 LOG1 S2 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+069550 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+069552 LOG1 S1 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+069552 LOG1 S1 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+069554 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+070064 TIMR S0 Leader, checking heartbeats
+070067 LOG1 S2 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+070067 LOG1 S2 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+070068 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+070069 LOG1 S1 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+070069 LOG1 S1 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+070070 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+070617 TIMR S0 Leader, checking heartbeats
+070621 LOG1 S2 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+070621 LOG1 S2 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+070622 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+070623 LOG1 S1 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+070623 LOG1 S1 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+070624 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+071164 TIMR S0 Leader, checking heartbeats
+071166 LOG1 S2 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+071166 LOG1 S2 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+071168 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+071169 LOG1 S1 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+071169 LOG1 S1 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+071170 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+071709 TIMR S0 Leader, checking heartbeats
+071712 LOG1 S2 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+071713 LOG1 S2 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+071714 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+071715 LOG1 S1 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+071715 LOG1 S1 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+071717 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+072228 TIMR S0 Leader, checking heartbeats
+072232 LOG1 S1 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+072232 LOG1 S1 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+072233 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+072257 LOG1 S2 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+072257 LOG1 S2 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+072259 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+072756 TIMR S0 Leader, checking heartbeats
+072765 LOG1 S1 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+072766 LOG1 S1 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+072767 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+072781 LOG1 S2 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+072781 LOG1 S2 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+072782 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+073096 VOTE S1 did not got majortity votes election faild
+073293 TIMR S0 Leader, checking heartbeats
+073296 LOG1 S2 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+073296 LOG1 S2 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+073297 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+073299 LOG1 S1 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+073299 LOG1 S1 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+073300 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+073753 VOTE S1 did not got majortity votes election faild
+073826 TIMR S0 Leader, checking heartbeats
+073829 LOG1 S2 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+073829 LOG1 S2 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+073830 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+073831 LOG1 S1 Handle AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+073831 LOG1 S1 Return AppendEntries, LeaderId0 Term12 CurrentTerm12 role=[Follower]
+073832 LEAD S0 appendEntries ends, peerTerm12 myCurrentTerm12 myRole[Leader]
+  ... Passed --   4.4  3  220   44896    0
+074062 CLNT S0 start
+074063 CLNT S1 start
+074064 CLNT S2 start
+074064 CLNT S3 start
+074065 CLNT S4 start
+074065 CLNT S5 start
+074066 CLNT S6 start
+Test (2A): multiple elections ...
+074316 VOTE S0 did not got majortity votes election faild
+075587 TIMR S3 Follower -> Candidate at time : 1681830234
+075588 CLNT S3 election timeouts restart a new election now - lastAct = 152 ms
+075588 INFO S3 new timeouts 245 ms
+075589 VOTE S3 send request to S0 for vote
+075589 VOTE S3 send request to S1 for vote
+075589 VOTE S3 send request to S2 for vote
+075589 VOTE S3 send request to S4 for vote
+075589 VOTE S3 send request to S5 for vote
+075589 VOTE S3 send request to S6 for vote
+075591 CLNT S6 Handle RequestVote, CandidatesId3 Term1 CurrentTerm0 LastLogIndex-1 LastLogTerm-1 votedFor-1
+075591 CLNT S6 voted to S3
+075593 CLNT S0 Handle RequestVote, CandidatesId3 Term1 CurrentTerm0 LastLogIndex-1 LastLogTerm-1 votedFor-1
+075593 CLNT S0 voted to S3
+075595 CLNT S1 Handle RequestVote, CandidatesId3 Term1 CurrentTerm0 LastLogIndex-1 LastLogTerm-1 votedFor-1
+075595 CLNT S1 voted to S3
+075595 VOTE S3 got majority votes and becomes Leader Spend 0 millseconds
+075596 CLNT S2 Handle RequestVote, CandidatesId3 Term1 CurrentTerm0 LastLogIndex-1 LastLogTerm-1 votedFor-1
+075596 CLNT S2 voted to S3
+075597 CLNT S4 Handle RequestVote, CandidatesId3 Term1 CurrentTerm0 LastLogIndex-1 LastLogTerm-1 votedFor-1
+075598 CLNT S4 voted to S3
+075599 CLNT S5 Handle RequestVote, CandidatesId3 Term1 CurrentTerm0 LastLogIndex-1 LastLogTerm-1 votedFor-1
+075599 CLNT S5 voted to S3
+075623 VOTE S0 did not got majortity votes election faild
+075652 TIMR S3 Leader, checking heartbeats
+075654 LOG1 S6 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+075654 LOG1 S6 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+075655 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+075657 LOG1 S0 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+075657 LOG1 S0 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+075658 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+075659 LOG1 S1 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+075659 LOG1 S1 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+075660 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+075662 LOG1 S2 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+075662 LOG1 S2 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+075663 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+075664 LOG1 S4 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+075664 LOG1 S4 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+075667 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+075668 LOG1 S5 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+075668 LOG1 S5 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+075669 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+076185 TIMR S3 Leader, checking heartbeats
+076189 LOG1 S0 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076189 LOG1 S0 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076190 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+076192 LOG1 S2 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076192 LOG1 S2 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076193 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+076194 LOG1 S1 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076194 LOG1 S1 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076195 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+076196 LOG1 S4 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076196 LOG1 S4 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076197 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+076199 LOG1 S5 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076199 LOG1 S5 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076202 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+076209 LOG1 S6 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076209 LOG1 S6 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076210 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+076455 VOTE S0 did not got majortity votes election faild
+076455 VOTE S0 did not got majortity votes election faild
+076712 TIMR S3 Leader, checking heartbeats
+076715 LOG1 S6 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076716 LOG1 S6 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076717 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+076722 LOG1 S0 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076722 LOG1 S0 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076724 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+076725 LOG1 S1 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076725 LOG1 S1 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076726 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+076727 LOG1 S2 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076727 LOG1 S2 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076730 LOG1 S4 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076730 LOG1 S4 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076731 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+076733 LOG1 S5 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076733 LOG1 S5 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+076734 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+076776 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+077260 TIMR S3 Leader, checking heartbeats
+077264 LOG1 S6 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077264 LOG1 S6 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077265 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+077267 LOG1 S0 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077267 LOG1 S0 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077268 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+077269 LOG1 S1 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077269 LOG1 S1 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077271 LOG1 S5 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077271 LOG1 S5 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077272 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+077273 LOG1 S4 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077273 LOG1 S4 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077274 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+077274 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+077276 LOG1 S2 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077276 LOG1 S2 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077278 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+077788 TIMR S3 Leader, checking heartbeats
+077791 LOG1 S6 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077791 LOG1 S6 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077793 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+077796 LOG1 S5 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077796 LOG1 S5 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077797 LOG1 S0 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077797 LOG1 S0 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077798 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+077801 LOG1 S1 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077801 LOG1 S1 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077802 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+077805 LOG1 S4 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077806 LOG1 S4 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077807 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+077808 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+077809 LOG1 S2 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077809 LOG1 S2 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+077810 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+078334 TIMR S3 Leader, checking heartbeats
+078337 LOG1 S6 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078337 LOG1 S6 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078338 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+078340 LOG1 S0 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078340 LOG1 S0 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078341 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+078342 LOG1 S1 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078342 LOG1 S1 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078343 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+078344 LOG1 S2 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078346 LOG1 S2 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078347 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+078348 LOG1 S4 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078348 LOG1 S4 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078349 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+078350 LOG1 S5 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078350 LOG1 S5 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078351 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+078869 TIMR S3 Leader, checking heartbeats
+078873 LOG1 S6 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078874 LOG1 S6 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078875 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+078876 LOG1 S0 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078876 LOG1 S0 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078877 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+078883 LOG1 S1 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078883 LOG1 S1 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078884 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+078885 LOG1 S2 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078885 LOG1 S2 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078886 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+078887 LOG1 S4 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078887 LOG1 S4 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078888 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+078891 LOG1 S5 Handle AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078891 LOG1 S5 Return AppendEntries, LeaderId3 Term1 CurrentTerm1 role=[Follower]
+078893 LEAD S3 appendEntries ends, peerTerm1 myCurrentTerm1 myRole[Leader]
+079406 TIMR S3 Leader, checking heartbeats
+079933 TIMR S3 Leader, checking heartbeats
+080482 TIMR S3 Leader, checking heartbeats
+080642 TIMR S5 Follower -> Candidate at time : 1681830235
+080644 CLNT S5 election timeouts restart a new election now - lastAct = 175 ms
+080644 INFO S5 new timeouts 248 ms
+080645 VOTE S5 send request to S0 for vote
+080645 VOTE S5 send request to S1 for vote
+080645 VOTE S5 send request to S2 for vote
+080645 VOTE S5 send request to S3 for vote
+080645 VOTE S5 send request to S4 for vote
+080645 VOTE S5 send request to S6 for vote
+080647 CLNT S6 Handle RequestVote, CandidatesId5 Term2 CurrentTerm1 LastLogIndex-1 LastLogTerm-1 votedFor3
+080647 CLNT S6 voted to S5
+080650 CLNT S2 Handle RequestVote, CandidatesId5 Term2 CurrentTerm1 LastLogIndex-1 LastLogTerm-1 votedFor3
+080650 CLNT S2 voted to S5
+080653 CLNT S4 Handle RequestVote, CandidatesId5 Term2 CurrentTerm1 LastLogIndex-1 LastLogTerm-1 votedFor3
+080653 CLNT S4 voted to S5
+080655 VOTE S5 got majority votes and becomes Leader Spend 1 millseconds
+080726 TIMR S5 Leader, checking heartbeats
+080730 LOG1 S6 Handle AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+080730 LOG1 S6 Return AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+080731 LEAD S5 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+080733 LOG1 S2 Handle AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+080734 LOG1 S2 Return AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+080735 LEAD S5 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+080737 LOG1 S4 Handle AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+080737 LOG1 S4 Return AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+080739 LEAD S5 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+081016 TIMR S3 Leader, checking heartbeats
+081158 TIMR S0 Follower -> Candidate at time : 1681830235
+081158 CLNT S0 election timeouts restart a new election now - lastAct = 228 ms
+081158 INFO S0 new timeouts 219 ms
+081162 VOTE S0 send request to S1 for vote
+081162 VOTE S0 send request to S2 for vote
+081162 VOTE S0 send request to S3 for vote
+081162 VOTE S0 send request to S4 for vote
+081162 VOTE S0 send request to S5 for vote
+081163 VOTE S0 send request to S6 for vote
+081164 TIMR S1 Follower -> Candidate at time : 1681830235
+081164 CLNT S1 election timeouts restart a new election now - lastAct = 228 ms
+081164 INFO S1 new timeouts 172 ms
+081164 VOTE S1 send request to S0 for vote
+081164 VOTE S1 send request to S2 for vote
+081164 VOTE S1 send request to S3 for vote
+081165 VOTE S1 send request to S4 for vote
+081165 VOTE S1 send request to S5 for vote
+081165 VOTE S1 send request to S6 for vote
+081285 TIMR S5 Leader, checking heartbeats
+081289 LOG1 S6 Handle AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+081289 LOG1 S6 Return AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+081290 LEAD S5 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+081293 LOG1 S2 Handle AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+081293 LOG1 S2 Return AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+081294 LEAD S5 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+081323 LOG1 S4 Handle AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+081324 LOG1 S4 Return AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+081326 LEAD S5 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+081612 TIMR S3 Leader, checking heartbeats
+081826 TIMR S5 Leader, checking heartbeats
+081829 LOG1 S6 Handle AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+081829 LOG1 S6 Return AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+081830 LEAD S5 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+081832 LOG1 S2 Handle AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+081833 LOG1 S2 Return AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+081833 LEAD S5 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+081835 LOG1 S4 Handle AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+081835 LOG1 S4 Return AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+081844 LEAD S5 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+082178 TIMR S3 Leader, checking heartbeats
+082364 TIMR S5 Leader, checking heartbeats
+082367 LOG1 S6 Handle AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+082367 LOG1 S6 Return AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+082369 LEAD S5 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+082370 LOG1 S2 Handle AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+082370 LOG1 S2 Return AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+082393 LOG1 S4 Handle AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+082393 LOG1 S4 Return AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+082394 LEAD S5 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+082424 LEAD S5 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+082715 TIMR S3 Leader, checking heartbeats
+082920 TIMR S5 Leader, checking heartbeats
+082927 LOG1 S2 Handle AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+082927 LOG1 S2 Return AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+082928 LEAD S5 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+082931 LOG1 S4 Handle AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+082931 LOG1 S4 Return AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+082932 LEAD S5 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+082933 LOG1 S6 Handle AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+082933 LOG1 S6 Return AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+082935 LEAD S5 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+083198 CLNT S1 election timeouts restart a new election now - lastAct = 203 ms
+083202 INFO S1 new timeouts 242 ms
+083203 VOTE S1 send request to S0 for vote
+083204 VOTE S1 send request to S2 for vote
+083204 VOTE S1 send request to S3 for vote
+083204 VOTE S1 send request to S4 for vote
+083204 VOTE S1 send request to S5 for vote
+083204 VOTE S1 send request to S6 for vote
+083222 TIMR S3 Leader, checking heartbeats
+083442 TIMR S5 Leader, checking heartbeats
+083446 LOG1 S6 Handle AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+083446 LOG1 S6 Return AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+083447 LEAD S5 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+083450 LOG1 S2 Handle AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+083450 LOG1 S2 Return AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+083451 LEAD S5 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+083456 LOG1 S4 Handle AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+083457 LOG1 S4 Return AppendEntries, LeaderId5 Term2 CurrentTerm2 role=[Follower]
+083457 LEAD S5 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Leader]
+083715 CLNT S0 election timeouts restart a new election now - lastAct = 255 ms
+083716 INFO S0 new timeouts 295 ms
+083716 VOTE S0 send request to S1 for vote
+083717 VOTE S0 send request to S2 for vote
+083717 VOTE S0 send request to S3 for vote
+083717 VOTE S0 send request to S4 for vote
+083717 VOTE S0 send request to S5 for vote
+083717 VOTE S0 send request to S6 for vote
+083754 TIMR S3 Leader, checking heartbeats
+083972 TIMR S5 Leader, checking heartbeats
+084294 TIMR S3 Leader, checking heartbeats
+084298 LOG1 S6 Handle AppendEntries, LeaderId3 Term1 CurrentTerm2 role=[Follower]
+084298 LOG1 S6 Return AppendEntries, LeaderId3 Term1 CurrentTerm2 role=[Follower]
+084299 LEAD S3 appendEntries ends, peerTerm2 myCurrentTerm2 myRole[Follower]
+084300 LOG1 S0 Handle AppendEntries, LeaderId3 Term1 CurrentTerm3 role=[Candidate]
+084300 LOG1 S0 Return AppendEntries, LeaderId3 Term1 CurrentTerm3 role=[Candidate]
+084300 LEAD S3 appendEntries ends, peerTerm3 myCurrentTerm3 myRole[Follower]
+084302 LOG1 S2 Handle AppendEntries, LeaderId3 Term1 CurrentTerm2 role=[Follower]
+084302 LOG1 S2 Return AppendEntries, LeaderId3 Term1 CurrentTerm2 role=[Follower]
+084303 LEAD S3 appendEntries ends, peerTerm2 myCurrentTerm3 myRole[Follower]
+084515 TIMR S5 Leader, checking heartbeats
+084574 VOTE S1 did not got majortity votes election faild
+084725 TIMR S3 Follower -> Candidate at time : 1681830235
+084726 CLNT S3 election timeouts restart a new election now - lastAct = 913 ms
+084726 INFO S3 new timeouts 331 ms
+084728 VOTE S3 send request to S0 for vote
+084728 VOTE S3 send request to S1 for vote
+084728 VOTE S3 send request to S2 for vote
+084728 VOTE S3 send request to S4 for vote
+084731 CLNT S0 Handle RequestVote, CandidatesId3 Term4 CurrentTerm3 LastLogIndex-1 LastLogTerm-1 votedFor0
+084749 CLNT S0 voted to S3
+084733 CLNT S2 Handle RequestVote, CandidatesId3 Term4 CurrentTerm2 LastLogIndex-1 LastLogTerm-1 votedFor5
+084751 CLNT S2 voted to S3
+084753 VOTE S3 send request to S5 for vote
+084753 VOTE S3 send request to S6 for vote
+084755 CLNT S6 Handle RequestVote, CandidatesId3 Term4 CurrentTerm2 LastLogIndex-1 LastLogTerm-1 votedFor5
+084755 CLNT S6 voted to S3
+084759 VOTE S3 got majority votes and becomes Leader Spend 3 millseconds
+084857 TIMR S3 Leader, checking heartbeats
+084860 LOG1 S6 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+084860 LOG1 S6 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+084861 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+084862 LOG1 S0 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+084862 LOG1 S0 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+084863 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+084864 LOG1 S2 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+084864 LOG1 S2 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+084865 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+085062 TIMR S5 Leader, checking heartbeats
+085397 TIMR S3 Leader, checking heartbeats
+085403 LOG1 S6 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+085403 LOG1 S6 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+085404 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+085405 LOG1 S0 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+085405 LOG1 S0 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+085406 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+085407 LOG1 S2 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+085407 LOG1 S2 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+085408 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+085633 TIMR S5 Leader, checking heartbeats
+085738 TIMR S4 Follower -> Candidate at time : 1681830235
+085738 CLNT S4 election timeouts restart a new election now - lastAct = 228 ms
+085738 INFO S4 new timeouts 256 ms
+085739 VOTE S4 send request to S0 for vote
+085739 VOTE S4 send request to S1 for vote
+085739 VOTE S4 send request to S2 for vote
+085739 VOTE S4 send request to S3 for vote
+085740 VOTE S4 send request to S5 for vote
+085740 VOTE S4 send request to S6 for vote
+085740 CLNT S1 election timeouts restart a new election now - lastAct = 253 ms
+085740 INFO S1 new timeouts 293 ms
+085740 VOTE S1 send request to S0 for vote
+085740 VOTE S1 send request to S2 for vote
+085740 VOTE S1 send request to S3 for vote
+085740 VOTE S1 send request to S4 for vote
+085740 VOTE S1 send request to S5 for vote
+085740 VOTE S1 send request to S6 for vote
+085948 TIMR S3 Leader, checking heartbeats
+085950 LOG1 S6 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+085951 LOG1 S6 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+085952 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+085953 LOG1 S0 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+085953 LOG1 S0 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+085953 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+085955 LOG1 S2 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+085955 LOG1 S2 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+085955 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+086165 TIMR S5 Leader, checking heartbeats
+086477 TIMR S3 Leader, checking heartbeats
+086485 LOG1 S2 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+086485 LOG1 S2 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+086487 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+086488 LOG1 S0 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+086488 LOG1 S0 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+086489 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+086490 LOG1 S6 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+086490 LOG1 S6 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+086502 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+086698 TIMR S5 Leader, checking heartbeats
+087014 TIMR S3 Leader, checking heartbeats
+087022 LOG1 S6 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+087038 LOG1 S6 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+087044 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+087024 LOG1 S0 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+087045 LOG1 S0 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+087046 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+087025 LOG1 S2 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+087046 LOG1 S2 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+087049 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+087234 TIMR S5 Leader, checking heartbeats
+087581 TIMR S3 Leader, checking heartbeats
+087584 LOG1 S6 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+087584 LOG1 S6 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+087586 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+087591 LOG1 S0 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+087591 LOG1 S0 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+087592 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+087594 LOG1 S2 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+087594 LOG1 S2 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+087595 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+087805 TIMR S5 Leader, checking heartbeats
+088151 TIMR S3 Leader, checking heartbeats
+088155 LOG1 S6 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+088155 LOG1 S6 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+088156 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+088157 LOG1 S0 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+088157 LOG1 S0 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+088158 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+088161 LOG1 S2 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+088161 LOG1 S2 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+088162 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+088365 TIMR S5 Leader, checking heartbeats
+088729 TIMR S3 Leader, checking heartbeats
+088732 LOG1 S6 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+088732 LOG1 S6 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+088733 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+088735 LOG1 S0 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+088735 LOG1 S0 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+088736 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+088738 LOG1 S2 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+088738 LOG1 S2 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+088739 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+088785 CLNT S1 election timeouts restart a new election now - lastAct = 304 ms
+088786 INFO S1 new timeouts 239 ms
+088786 VOTE S1 send request to S0 for vote
+088787 VOTE S1 send request to S2 for vote
+088787 VOTE S1 send request to S3 for vote
+088787 VOTE S1 send request to S4 for vote
+088787 VOTE S1 send request to S5 for vote
+088787 VOTE S1 send request to S6 for vote
+088790 CLNT S4 election timeouts restart a new election now - lastAct = 305 ms
+088790 INFO S4 new timeouts 305 ms
+088790 VOTE S4 send request to S0 for vote
+088791 VOTE S4 send request to S1 for vote
+088791 VOTE S4 send request to S2 for vote
+088791 VOTE S4 send request to S3 for vote
+088791 VOTE S4 send request to S5 for vote
+088791 VOTE S4 send request to S6 for vote
+088933 TIMR S5 Leader, checking heartbeats
+089289 TIMR S3 Leader, checking heartbeats
+089293 LOG1 S6 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+089293 LOG1 S6 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+089294 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+089295 LOG1 S0 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+089295 LOG1 S0 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+089296 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+089298 LOG1 S2 Handle AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+089298 LOG1 S2 Return AppendEntries, LeaderId3 Term4 CurrentTerm4 role=[Follower]
+089299 LEAD S3 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Leader]
+089498 TIMR S5 Leader, checking heartbeats
+089502 LOG1 S6 Handle AppendEntries, LeaderId5 Term2 CurrentTerm4 role=[Follower]
+089502 LOG1 S6 Return AppendEntries, LeaderId5 Term2 CurrentTerm4 role=[Follower]
+089503 LEAD S5 appendEntries ends, peerTerm4 myCurrentTerm4 myRole[Follower]
+089505 LOG1 S1 Handle AppendEntries, LeaderId5 Term2 CurrentTerm5 role=[Candidate]
+089505 LOG1 S1 Return AppendEntries, LeaderId5 Term2 CurrentTerm5 role=[Candidate]
+089506 LEAD S5 appendEntries ends, peerTerm5 myCurrentTerm5 myRole[Follower]
+089508 LOG1 S2 Handle AppendEntries, LeaderId5 Term2 CurrentTerm4 role=[Follower]
+089508 LOG1 S2 Return AppendEntries, LeaderId5 Term2 CurrentTerm4 role=[Follower]
+089579 LEAD S5 appendEntries ends, peerTerm4 myCurrentTerm5 myRole[Follower]
+089813 TIMR S5 Follower -> Candidate at time : 1681830236
+089814 CLNT S5 election timeouts restart a new election now - lastAct = 917 ms
+089814 INFO S5 new timeouts 317 ms
+089815 VOTE S5 send request to S0 for vote
+089815 VOTE S5 send request to S1 for vote
+089815 VOTE S5 send request to S2 for vote
+089815 VOTE S5 send request to S3 for vote
+089815 VOTE S5 send request to S4 for vote
+089815 VOTE S5 send request to S6 for vote
+089819 CLNT S6 Handle RequestVote, CandidatesId5 Term6 CurrentTerm4 LastLogIndex-1 LastLogTerm-1 votedFor3
+089819 CLNT S6 voted to S5
+089823 CLNT S1 Handle RequestVote, CandidatesId5 Term6 CurrentTerm5 LastLogIndex-1 LastLogTerm-1 votedFor1
+089823 CLNT S1 voted to S5
+089828 CLNT S2 Handle RequestVote, CandidatesId5 Term6 CurrentTerm4 LastLogIndex-1 LastLogTerm-1 votedFor3
+089828 CLNT S2 voted to S5
+089830 VOTE S5 got majority votes and becomes Leader Spend 1 millseconds
+089845 TIMR S5 Leader, checking heartbeats
+089847 LOG1 S6 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+089848 LOG1 S6 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+089849 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+089849 TIMR S3 Leader, checking heartbeats
+089851 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+089851 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+089852 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+089853 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+089853 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+089854 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+090085 VOTE S1 did not got majortity votes election faild
+090437 TIMR S5 Leader, checking heartbeats
+090443 LOG1 S6 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+090444 LOG1 S6 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+090445 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+090445 TIMR S3 Leader, checking heartbeats
+090451 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+090451 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+090452 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+090491 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+090492 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+090498 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+090550 VOTE S1 did not got majortity votes election faild
+090986 TIMR S5 Leader, checking heartbeats
+090989 LOG1 S6 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+090989 LOG1 S6 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+090990 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+090992 TIMR S3 Leader, checking heartbeats
+090997 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+090997 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+090998 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+091000 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+091000 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+091006 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+091114 VOTE S1 did not got majortity votes election faild
+091446 VOTE S0 did not got majortity votes election faild
+091582 TIMR S5 Leader, checking heartbeats
+091585 LOG1 S6 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+091585 LOG1 S6 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+091587 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+091590 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+091590 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+091591 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+091593 TIMR S3 Leader, checking heartbeats
+091600 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+091601 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+091603 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+091908 CLNT S4 election timeouts restart a new election now - lastAct = 311 ms
+091908 INFO S4 new timeouts 320 ms
+091908 VOTE S4 send request to S0 for vote
+091909 VOTE S4 send request to S1 for vote
+091909 VOTE S4 send request to S2 for vote
+091909 VOTE S4 send request to S3 for vote
+091909 VOTE S4 send request to S5 for vote
+091909 VOTE S4 send request to S6 for vote
+091912 TIMR S0 Follower -> Candidate at time : 1681830236
+091912 CLNT S0 election timeouts restart a new election now - lastAct = 261 ms
+091912 INFO S0 new timeouts 267 ms
+091912 VOTE S0 send request to S1 for vote
+091913 VOTE S0 send request to S2 for vote
+091913 VOTE S0 send request to S3 for vote
+091913 VOTE S0 send request to S4 for vote
+091913 VOTE S0 send request to S5 for vote
+091913 VOTE S0 send request to S6 for vote
+092117 TIMR S5 Leader, checking heartbeats
+092118 TIMR S3 Leader, checking heartbeats
+092125 LOG1 S6 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+092125 LOG1 S6 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+092126 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+092127 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+092127 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+092130 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+092130 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+092131 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+092133 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+092659 TIMR S5 Leader, checking heartbeats
+092662 LOG1 S6 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+092662 LOG1 S6 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+092664 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+092664 TIMR S3 Leader, checking heartbeats
+092666 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+092666 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+092667 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+092668 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+092668 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+092670 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+093191 TIMR S5 Leader, checking heartbeats
+093195 LOG1 S6 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+093195 LOG1 S6 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+093196 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+093196 TIMR S3 Leader, checking heartbeats
+093199 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+093199 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+093202 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+093205 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+093218 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+093221 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+093737 TIMR S3 Leader, checking heartbeats
+093740 TIMR S5 Leader, checking heartbeats
+093742 LOG1 S6 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+093742 LOG1 S6 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+093744 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+093748 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+093749 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+093751 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+093752 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+093753 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+093756 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+094108 VOTE S1 did not got majortity votes election faild
+094277 TIMR S5 Leader, checking heartbeats
+094281 LOG1 S6 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+094281 LOG1 S6 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+094282 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+094282 TIMR S3 Leader, checking heartbeats
+094284 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+094284 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+094285 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+094286 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+094286 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+094287 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+094798 TIMR S5 Leader, checking heartbeats
+094803 LOG1 S0 Handle AppendEntries, LeaderId5 Term6 CurrentTerm5 role=[Candidate]
+094803 LOG1 S0 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+094805 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+094806 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+094806 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+094807 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+094812 TIMR S3 Leader, checking heartbeats
+094817 LOG1 S4 Handle AppendEntries, LeaderId5 Term6 CurrentTerm5 role=[Candidate]
+094818 LOG1 S4 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+094822 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+094848 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+094848 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+094851 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+095309 TIMR S5 Leader, checking heartbeats
+095314 LOG1 S0 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+095314 LOG1 S0 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+095315 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+095318 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+095318 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+095321 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+095323 LOG1 S4 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+095324 LOG1 S4 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+095325 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+095329 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+095330 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+095331 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+095417 TIMR S3 Leader, checking heartbeats
+095704 VOTE S1 did not got majortity votes election faild
+095884 TIMR S5 Leader, checking heartbeats
+095889 LOG1 S0 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+095889 LOG1 S0 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+095890 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+095892 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+095892 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+095893 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+095899 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+095899 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+095900 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+095910 LOG1 S4 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+095910 LOG1 S4 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+095914 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+095987 TIMR S3 Leader, checking heartbeats
+096485 TIMR S5 Leader, checking heartbeats
+096491 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+096491 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+096493 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+096494 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+096495 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+096496 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+096498 LOG1 S4 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+096498 LOG1 S4 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+096499 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+096503 LOG1 S0 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+096503 LOG1 S0 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+096505 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+096660 TIMR S3 Leader, checking heartbeats
+097058 TIMR S5 Leader, checking heartbeats
+097063 LOG1 S0 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+097063 LOG1 S0 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+097077 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+097077 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+097079 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+097082 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+097082 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+097084 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+097088 LOG1 S4 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+097088 LOG1 S4 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+097090 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+097096 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+097161 TIMR S3 Leader, checking heartbeats
+097599 TIMR S5 Leader, checking heartbeats
+097605 LOG1 S0 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+097606 LOG1 S0 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+097607 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+097611 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+097611 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+097612 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+097613 LOG1 S4 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+097614 LOG1 S4 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+097615 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+097619 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+097619 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+097622 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+097718 TIMR S3 Leader, checking heartbeats
+097876 TIMR S6 Follower -> Candidate at time : 1681830237
+097878 CLNT S6 election timeouts restart a new election now - lastAct = 359 ms
+097878 INFO S6 new timeouts 179 ms
+097879 VOTE S6 send request to S0 for vote
+097880 VOTE S6 send request to S1 for vote
+097880 VOTE S6 send request to S2 for vote
+097880 VOTE S6 send request to S3 for vote
+097880 VOTE S6 send request to S4 for vote
+097880 VOTE S6 send request to S5 for vote
+098133 TIMR S5 Leader, checking heartbeats
+098137 LOG1 S0 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+098137 LOG1 S0 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+098139 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+098141 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+098141 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+098142 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+098144 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+098144 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+098149 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+098186 LOG1 S4 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+098187 LOG1 S4 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+098189 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+098240 TIMR S3 Leader, checking heartbeats
+098360 VOTE S1 did not got majortity votes election faild
+098711 TIMR S5 Leader, checking heartbeats
+098716 LOG1 S0 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+098716 LOG1 S0 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+098717 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+098719 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+098719 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+098720 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+098722 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+098722 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+098723 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+098737 LOG1 S4 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+098737 LOG1 S4 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+098758 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+098843 TIMR S3 Leader, checking heartbeats
+099051 VOTE S4 did not got majortity votes election faild
+099151 VOTE S4 did not got majortity votes election faild
+099275 TIMR S5 Leader, checking heartbeats
+099280 LOG1 S0 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+099280 LOG1 S0 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+099281 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+099282 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+099283 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+099283 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+099285 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+099285 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+099286 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+099288 LOG1 S4 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+099288 LOG1 S4 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+099352 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+099380 TIMR S3 Leader, checking heartbeats
+099791 TIMR S5 Leader, checking heartbeats
+099795 LOG1 S0 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+099795 LOG1 S0 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+099797 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+099799 LOG1 S1 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+099799 LOG1 S1 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+099801 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+099802 LOG1 S2 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+099802 LOG1 S2 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+099814 LOG1 S4 Handle AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+099815 LOG1 S4 Return AppendEntries, LeaderId5 Term6 CurrentTerm6 role=[Follower]
+099831 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+099832 LEAD S5 appendEntries ends, peerTerm6 myCurrentTerm6 myRole[Leader]
+099876 VOTE S0 did not got majortity votes election faild
+099893 TIMR S3 Leader, checking heartbeats
+100093 CLNT S6 election timeouts restart a new election now - lastAct = 221 ms
+100094 INFO S6 new timeouts 160 ms
+100095 VOTE S6 send request to S0 for vote
+100096 VOTE S6 send request to S1 for vote
+100096 VOTE S6 send request to S2 for vote
+100096 VOTE S6 send request to S3 for vote
+100096 VOTE S6 send request to S4 for vote
+100096 VOTE S6 send request to S5 for vote
+100099 CLNT S5 Handle RequestVote, CandidatesId6 Term8 CurrentTerm6 LastLogIndex-1 LastLogTerm-1 votedFor5
+100099 CLNT S5 voted to S6
+100111 CLNT S3 Handle RequestVote, CandidatesId6 Term8 CurrentTerm4 LastLogIndex-1 LastLogTerm-1 votedFor3
+100111 CLNT S3 voted to S6
+100115 CLNT S2 Handle RequestVote, CandidatesId6 Term8 CurrentTerm6 LastLogIndex-1 LastLogTerm-1 votedFor5
+100115 CLNT S2 voted to S6
+100116 VOTE S6 got majority votes and becomes Leader Spend 2 millseconds
+100117 TIMR S6 Leader, checking heartbeats
+100334 LOG1 S2 Handle AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+100334 LOG1 S2 Return AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+100336 LEAD S6 appendEntries ends, peerTerm8 myCurrentTerm8 myRole[Leader]
+100338 LOG1 S1 Handle AppendEntries, LeaderId6 Term8 CurrentTerm6 role=[Follower]
+100338 LOG1 S1 Return AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+100339 LEAD S6 appendEntries ends, peerTerm8 myCurrentTerm8 myRole[Leader]
+100341 LOG1 S3 Handle AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+100341 LOG1 S3 Return AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+100342 LEAD S6 appendEntries ends, peerTerm8 myCurrentTerm8 myRole[Leader]
+100575 CLNT S1 Handle RequestVote, CandidatesId6 Term8 CurrentTerm8 LastLogIndex-1 LastLogTerm-1 votedFor-1
+100575 CLNT S1 voted to S6
+100640 TIMR S6 Leader, checking heartbeats
+100647 LOG1 S1 Handle AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+100647 LOG1 S1 Return AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+100693 LEAD S6 appendEntries ends, peerTerm8 myCurrentTerm8 myRole[Leader]
+100696 LOG1 S2 Handle AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+100696 LOG1 S2 Return AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+100697 LEAD S6 appendEntries ends, peerTerm8 myCurrentTerm8 myRole[Leader]
+100699 LOG1 S3 Handle AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+100700 LOG1 S3 Return AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+100701 LEAD S6 appendEntries ends, peerTerm8 myCurrentTerm8 myRole[Leader]
+102385 TIMR S6 Leader, checking heartbeats
+102389 TIMR S0 Follower -> Candidate at time : 1681830237
+102389 CLNT S0 election timeouts restart a new election now - lastAct = 259 ms
+102390 INFO S0 new timeouts 183 ms
+102390 VOTE S0 send request to S1 for vote
+102391 VOTE S0 send request to S2 for vote
+102391 VOTE S0 send request to S3 for vote
+102391 VOTE S0 send request to S4 for vote
+102391 VOTE S0 send request to S5 for vote
+102391 VOTE S0 send request to S6 for vote
+102391 TIMR S4 Follower -> Candidate at time : 1681830237
+102391 CLNT S4 election timeouts restart a new election now - lastAct = 257 ms
+102391 INFO S4 new timeouts 182 ms
+102392 VOTE S4 send request to S0 for vote
+102392 VOTE S4 send request to S1 for vote
+102392 VOTE S4 send request to S2 for vote
+102392 VOTE S4 send request to S3 for vote
+102392 VOTE S4 send request to S5 for vote
+102392 VOTE S4 send request to S6 for vote
+102394 LOG1 S1 Handle AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+102394 LOG1 S1 Return AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+102396 LEAD S6 appendEntries ends, peerTerm8 myCurrentTerm8 myRole[Leader]
+102397 LOG1 S2 Handle AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+102397 LOG1 S2 Return AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+102398 LEAD S6 appendEntries ends, peerTerm8 myCurrentTerm8 myRole[Leader]
+102399 LOG1 S3 Handle AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+102400 LOG1 S3 Return AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+102400 LEAD S6 appendEntries ends, peerTerm8 myCurrentTerm8 myRole[Leader]
+102986 TIMR S6 Leader, checking heartbeats
+102993 LOG1 S1 Handle AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+102993 LOG1 S1 Return AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+102995 LEAD S6 appendEntries ends, peerTerm8 myCurrentTerm8 myRole[Leader]
+102996 LOG1 S2 Handle AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+102997 LOG1 S2 Return AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+102998 LEAD S6 appendEntries ends, peerTerm8 myCurrentTerm8 myRole[Leader]
+103000 LOG1 S3 Handle AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+103000 LOG1 S3 Return AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+103001 LEAD S6 appendEntries ends, peerTerm8 myCurrentTerm8 myRole[Leader]
+103572 TIMR S6 Leader, checking heartbeats
+103579 LOG1 S1 Handle AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+103579 LOG1 S1 Return AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+103580 LEAD S6 appendEntries ends, peerTerm8 myCurrentTerm8 myRole[Leader]
+103584 LOG1 S3 Handle AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+103584 LOG1 S3 Return AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+103585 LEAD S6 appendEntries ends, peerTerm8 myCurrentTerm8 myRole[Leader]
+103586 LOG1 S2 Handle AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+103586 LOG1 S2 Return AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+103587 LEAD S6 appendEntries ends, peerTerm8 myCurrentTerm8 myRole[Leader]
+104342 TIMR S6 Leader, checking heartbeats
+104347 LOG1 S1 Handle AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+104348 LOG1 S1 Return AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+104349 LEAD S6 appendEntries ends, peerTerm8 myCurrentTerm8 myRole[Leader]
+104350 LOG1 S2 Handle AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+104350 LOG1 S2 Return AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+104353 LEAD S6 appendEntries ends, peerTerm8 myCurrentTerm8 myRole[Leader]
+104355 LOG1 S3 Handle AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+104355 LOG1 S3 Return AppendEntries, LeaderId6 Term8 CurrentTerm8 role=[Follower]
+104356 LEAD S6 appendEntries ends, peerTerm8 myCurrentTerm8 myRole[Leader]
+104521 CLNT S4 election timeouts restart a new election now - lastAct = 212 ms
+104522 INFO S4 new timeouts 167 ms
+104523 VOTE S4 send request to S0 for vote
+104523 VOTE S4 send request to S1 for vote
+104523 VOTE S4 send request to S2 for vote
+104523 VOTE S4 send request to S3 for vote
+104524 VOTE S4 send request to S5 for vote
+104524 VOTE S4 send request to S6 for vote
+104525 CLNT S0 election timeouts restart a new election now - lastAct = 213 ms
+104525 INFO S0 new timeouts 296 ms
+104525 VOTE S0 send request to S1 for vote
+104525 VOTE S0 send request to S2 for vote
+104525 VOTE S0 send request to S3 for vote
+104525 VOTE S0 send request to S4 for vote
+104525 VOTE S0 send request to S5 for vote
+104525 VOTE S0 send request to S6 for vote
+--- FAIL: TestManyElections2A (3.06s)
+    config.go:389: term 8 has 2 (>1) leaders
+FAIL
+exit status 1
+FAIL	6.824/raft	10.592s
