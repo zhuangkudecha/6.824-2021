@@ -17,6 +17,17 @@ package raft
 //   in the same server.
 //
 
+
+// TODO：
+// 原本使用len(log) 来判断log的index 和长度，但是现在使用snapshot之后，不能通过log的长度来判断
+// 解决方法：
+// 			1. 在log结构中新增一个index 字段
+//			2. 通过lastIncludeIndex 和 lastIncludeTerm 结合起来进行判断
+
+
+// lastIncludeIndex : the index of last included log in snapshot
+// lastIncludeTerm : the term of last included log in snapshot
+// startIndex : the first index of log (if log is empty, startIndex is lastIncludeIndex, else startIndex is the first index of log)
 import (
 	//	"bytes"
 	"bytes"
@@ -129,14 +140,18 @@ func (rf *Raft) persist() {
 	e.Encode(rf.currentTerm)
 	e.Encode(rf.votedFor)
 	e.Encode(rf.log)
-	index := len(rf.log) - 1
-	// start index
-	for key := range rf.log {
-		if key < index {
-			index = key
-		}
+	e.Encode(rf.lastIncludedIndex)
+	e.Encode(rf.lastIncludedTerm)
+
+	// start index is the first index of contained log
+	// if log is empty, start index is last included index
+	// if log is not empty, start index is the first index of log (the last included index + 1)
+	if len(rf.log) == 0 {
+		rf.startIndex = rf.lastIncludedIndex
+	}else {
+		rf.startIndex = rf.lastIncludedIndex + 1	
 	}
-	rf.startIndex = index
+
 	e.Encode(rf.startIndex)
 	data := w.Bytes()
 	rf.persister.SaveRaftState(data)
@@ -156,6 +171,8 @@ func (rf *Raft) readPersist(data []byte) {
 	d.Decode(&rf.votedFor)
 	d.Decode(&rf.log)
 	d.Decode(&rf.startIndex)
+	d.Decode(&rf.lastIncludedIndex)
+	d.Decode(&rf.lastIncludedTerm)
 }
 
 // A service wants to switch to snapshot.  Only do so if Raft hasn't
@@ -163,7 +180,27 @@ func (rf *Raft) readPersist(data []byte) {
 func (rf *Raft) CondInstallSnapshot(lastIncludedTerm int, lastIncludedIndex int, snapshot []byte) bool {
 
 	// Your code here (2D).
-
+	// update logs at the same time (service switched in new snapshot)
+	// 1. update lastIncludedIndex and lastIncludedTerm
+	// 2. update log
+	// 3. update persister
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	// rf.lastIncludedIndex = lastIncludedIndex
+	// rf.lastIncludedTerm = lastIncludedTerm
+	// rf.log = rf.log[lastIncludedIndex-rf.startIndex:]
+	// if len(rf.log) == 0{
+	// 	rf.startIndex = 0
+	// }else {
+	// 	rf.startIndex = lastIncludedIndex + 1
+	// }
+	// rf.persist()
+	// 4. send snapshot to all peers
+	for i := 0; i < len(rf.peers); i++ {
+		if i != rf.me {
+			go rf.sendInstallSnapshot(i, snapshot)
+		}
+	}
 	return true
 }
 
@@ -177,32 +214,41 @@ func (rf *Raft) Snapshot(index int, snapshot []byte) {
 	// 2. update lastIncludedIndex and lastIncludedTerm
 	// 3. update log
 	// 4. update persister
+	// 6. send snapshot to applyCh
+	for !rf.killed(){
 
-	rf.mu.Lock()
-	defer rf.mu.Unlock()
+		rf.mu.Lock()
+		defer rf.mu.Unlock()
 
-	if index <= rf.lastIncludedIndex {
-		return
-	}
-	rf.lastIncludedIndex = index
-	rf.lastIncludedTerm = rf.log[index-rf.startIndex].Term
-	rf.log = rf.log[index-rf.startIndex+1:]
-	rf.startIndex = index
-	rf.persist()
+		if index <= rf.lastIncludedIndex {
+			// index is too small, there is no need to snapshot
+			Debug(dSnap, "S%d snapshot index %v is too small, there is no need to snapshot", rf.me, index)
+			return
+		}
+		if index > rf.startIndex+len(rf.log)-1 {
+			// index is too large, cannot snapshot
+			Debug(dSnap, "S%d snapshot index %v is too large, cannot snapshot", rf.me, index)
+			return
+		}
+		rf.lastIncludedIndex = index
+		rf.lastIncludedTerm = rf.log[index-rf.startIndex].Term
+		rf.log = rf.log[index-rf.startIndex+1:]
+		rf.startIndex = index + 1
+		Debug(dSnap, "S%d snapshot index %v, lastIncludedIndex %v, lastIncludedTerm %v, startIndex %v", rf.me, index, rf.lastIncludedIndex, rf.lastIncludedTerm, rf.startIndex)
+		rf.persist()
+		rf.persister.SaveStateAndSnapshot(rf.persister.ReadRaftState(), snapshot)
+		// send snapshot to applyCh.
+		rf.applyCh <- ApplyMsg{
+			CommandValid: false,
+			Command:      nil,
+			CommandIndex: index,
 
-	// send snapshot to all peers
-	for i := 0; i < len(rf.peers); i++ {
-		if i != rf.me {
-			go rf.sendInstallSnapshot(i, snapshot)
+			SnapshotValid: true,
+			Snapshot:      snapshot,
+			SnapshotTerm:  rf.lastIncludedTerm,
+			SnapshotIndex: rf.lastIncludedIndex,
 		}
 	}
-	rf.applyCh <- ApplyMsg{
-		SnapshotValid: true,
-		Snapshot:      snapshot,
-		SnapshotTerm:  rf.lastIncludedTerm,
-		SnapshotIndex: rf.lastIncludedIndex,
-	}
-
 }
 
 type InstallSnapshotArgs struct {
@@ -211,7 +257,6 @@ type InstallSnapshotArgs struct {
 	LastIncludedIndex int    // the snapshot replaces all entries up through and including this index
 	LastIncludedTerm  int    // term of lastincludedIndex
 	Snapshot          []byte // raw bytes of the snapshot chunk starting
-	// Done              bool   // true if theis is the last chunk
 }
 
 type InstallSnapshotReplyArgs struct {
@@ -224,38 +269,29 @@ func (rf *Raft) InstallSnapshot(arg *InstallSnapshotArgs, reply *InstallSnapshot
 	reply.Term = rf.currentTerm
 	// reply immediately if term < currentTerm
 	if arg.Term < rf.currentTerm {
+		Debug(dSnap, "S%d [InstallSnapshot] term %v < currentTerm %v, reply immediately", rf.me, arg.Term, rf.currentTerm)
 		return
 	}
 	// discard any existing or partial snapshot with a smaller index
 	if arg.LastIncludedIndex <= rf.lastIncludedIndex {
+		Debug(dSnap, "S%d [InstallSnapshot] arg.LastIncludedIndex %v <= rf.lastIncludedIndex %v, discard any existing or partial snapshot with a smaller index", rf.me, arg.LastIncludedIndex, rf.lastIncludedIndex)
 		return
 	}
-	// if existing log entry has same index and term as snapshot's last included entry,
-	// retain log entries following it and reply
-	if len(rf.log) > 0 && arg.LastIncludedIndex == rf.lastIncludedIndex && arg.LastIncludedTerm == rf.lastIncludedTerm {
-		rf.log = rf.log[rf.lastIncludedIndex:]
-	} else {
-		// discard the entire log
+	// if existing log entry is smaller than snapshot's last included index, discard the log entries
+	if arg.LastIncludedIndex > rf.startIndex+len(rf.log)-1 {
+		Debug(dSnap, "S%d [InstallSnapshot] arg.LastIncludedIndex %v > rf.startIndex+len(rf.log)-1 %v, discard any existing or partial snapshot with a smaller index", rf.me, arg.LastIncludedIndex, rf.startIndex+len(rf.log)-1)
 		rf.log = make([]LogEntry, 0)
+	}else{
+	// trim the log after the snapshot's last included index
+		Debug(dSnap, "S%d [InstallSnapshot] trim the log after the snapshot's last included index ", rf.me)
+		rf.log = rf.log[arg.LastIncludedIndex-rf.startIndex+1:]
 	}
 	// reset state machine using snapshot contents
 	rf.lastIncludedIndex = arg.LastIncludedIndex
 	rf.lastIncludedTerm = arg.LastIncludedTerm
-	rf.persister.SaveStateAndSnapshot(rf.encodeRaftState(), arg.Snapshot)
+	rf.startIndex = arg.LastIncludedIndex + 1
 	rf.persist()
-	// send snapshot to applyCh
-	applyMsg := ApplyMsg{
-		CommandValid: false,
-		Command:      nil,
-		CommandIndex: arg.LastIncludedIndex,
-
-		SnapshotValid: true,
-		Snapshot:      arg.Snapshot,
-		SnapshotTerm:  arg.LastIncludedTerm,
-		SnapshotIndex: arg.LastIncludedIndex,
-	}
-	rf.applyCh <- applyMsg
-
+	rf.persister.SaveStateAndSnapshot(rf.persister.ReadRaftState(), arg.Snapshot)
 }
 
 func (rf *Raft) sendInstallSnapshot(server int, snapshot []byte) {
@@ -282,17 +318,6 @@ func (rf *Raft) sendInstallSnapshot(server int, snapshot []byte) {
 	}
 }
 
-func (rf *Raft) encodeRaftState() []byte {
-	w := new(bytes.Buffer)
-	e := labgob.NewEncoder(w)
-	e.Encode(rf.currentTerm)
-	e.Encode(rf.votedFor)
-	e.Encode(rf.log)
-	e.Encode(rf.lastIncludedIndex)
-	e.Encode(rf.lastIncludedTerm)
-	data := w.Bytes()
-	return data
-}
 
 // example RequestVote RPC arguments structure.
 // field names must start with capital letters!
