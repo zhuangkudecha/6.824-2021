@@ -8,12 +8,14 @@ package raft
 // test with the original before submitting.
 //
 
-import "testing"
-import "fmt"
-import "time"
-import "math/rand"
-import "sync/atomic"
-import "sync"
+import (
+	"fmt"
+	"math/rand"
+	"sync"
+	"sync/atomic"
+	"testing"
+	"time"
+)
 
 // The tester generously allows solutions to complete elections in one second
 // (much more than the paper's range of timeouts).
@@ -142,10 +144,8 @@ func TestBasicAgree2B(t *testing.T) {
 	cfg.end()
 }
 
-//
 // check, based on counting bytes of RPCs, that
 // each command is sent to each peer just once.
-//
 func TestRPCBytes2B(t *testing.T) {
 	servers := 3
 	cfg := make_config(t, servers, false, false)
@@ -594,34 +594,46 @@ func TestPersist12C(t *testing.T) {
 
 	// crash and re-start all
 	for i := 0; i < servers; i++ {
+		Debug(dTest, "S%d start1", i)
 		cfg.start1(i, cfg.applier)
 	}
 	for i := 0; i < servers; i++ {
+		Debug(dTest, "S%d disconnect", i)
 		cfg.disconnect(i)
+		Debug(dTest, "S%d connect", i)
 		cfg.connect(i)
 	}
 
 	cfg.one(12, servers, true)
 
 	leader1 := cfg.checkOneLeader()
+	Debug(dTest, "S%d disconnect leader1", leader1)
 	cfg.disconnect(leader1)
+	Debug(dTest, "S%d start1 leader1", leader1)
 	cfg.start1(leader1, cfg.applier)
+	Debug(dTest, "S%d connect leader1", leader1)
 	cfg.connect(leader1)
 
 	cfg.one(13, servers, true)
 
 	leader2 := cfg.checkOneLeader()
+	Debug(dTest, "S%d disconnect leader2", leader2)
 	cfg.disconnect(leader2)
 	cfg.one(14, servers-1, true)
+	Debug(dTest, "S%d start1 leader2", leader2)
 	cfg.start1(leader2, cfg.applier)
+	Debug(dTest, "S%d connect leader2", leader2)
 	cfg.connect(leader2)
 
 	cfg.wait(4, servers, -1) // wait for leader2 to join before killing i3
 
 	i3 := (cfg.checkOneLeader() + 1) % servers
+	Debug(dTest, "S%d disconnect i3", i3)
 	cfg.disconnect(i3)
 	cfg.one(15, servers-1, true)
+	Debug(dTest, "S%d start1 i3", i3)
 	cfg.start1(i3, cfg.applier)
+	Debug(dTest, "S%d connect i3", i3)
 	cfg.connect(i3)
 
 	cfg.one(16, servers, true)
@@ -705,7 +717,6 @@ func TestPersist32C(t *testing.T) {
 	cfg.end()
 }
 
-//
 // Test the scenarios described in Figure 8 of the extended Raft paper. Each
 // iteration asks a leader, if there is one, to insert a command in the Raft
 // log.  If there is a leader, that leader will fail quickly with a high
@@ -714,7 +725,6 @@ func TestPersist32C(t *testing.T) {
 // alive servers isn't enough to form a majority, perhaps start a new server.
 // The leader in a new term may try to finish replicating log entries that
 // haven't been committed yet.
-//
 func TestFigure82C(t *testing.T) {
 	servers := 5
 	cfg := make_config(t, servers, false, false)
@@ -1030,10 +1040,12 @@ func snapcommon(t *testing.T, name string, disconnect bool, reliable bool, crash
 		}
 
 		if disconnect {
+			Debug(dTest, "S%d disconnect~~~~", victim)
 			cfg.disconnect(victim)
 			cfg.one(rand.Int(), servers-1, true)
 		}
 		if crash {
+			Debug(dTest, "S%d crash~~~~", victim)
 			cfg.crash1(victim)
 			cfg.one(rand.Int(), servers-1, true)
 		}
@@ -1050,12 +1062,15 @@ func snapcommon(t *testing.T, name string, disconnect bool, reliable bool, crash
 		if disconnect {
 			// reconnect a follower, who maybe behind and
 			// needs to rceive a snapshot to catch up.
+			Debug(dTest, "S%d reconnect~~~~", victim)
 			cfg.connect(victim)
 			cfg.one(rand.Int(), servers, true)
 			leader1 = cfg.checkOneLeader()
 		}
 		if crash {
+			Debug(dTest, "S%d restart~~~~", victim)
 			cfg.start1(victim, cfg.applierSnap)
+			Debug(dTest, "S%d reconnect~~~~", victim)
 			cfg.connect(victim)
 			cfg.one(rand.Int(), servers, true)
 			leader1 = cfg.checkOneLeader()

@@ -8,19 +8,23 @@ package raft
 // test with the original before submitting.
 //
 
-import "6.824/labgob"
-import "6.824/labrpc"
-import "bytes"
-import "log"
-import "sync"
-import "testing"
-import "runtime"
-import "math/rand"
-import crand "crypto/rand"
-import "math/big"
-import "encoding/base64"
-import "time"
-import "fmt"
+import (
+	"bytes"
+	"log"
+	"math/rand"
+	"runtime"
+	"sync"
+	"testing"
+
+	"6.824/labgob"
+	"6.824/labrpc"
+
+	crand "crypto/rand"
+	"encoding/base64"
+	"fmt"
+	"math/big"
+	"time"
+)
 
 func randstring(n int) string {
 	b := make([]byte, 2*n)
@@ -183,6 +187,7 @@ func (cfg *config) applierSnap(i int, applyCh chan ApplyMsg) {
 	for m := range applyCh {
 		if m.SnapshotValid {
 			//DPrintf("Installsnapshot %v %v\n", m.SnapshotIndex, lastApplied)
+			Debug(dSnap, "S%d Installsnapshot %v %v", i, m.SnapshotIndex, lastApplied)
 			cfg.mu.Lock()
 			if cfg.rafts[i].CondInstallSnapshot(m.SnapshotTerm,
 				m.SnapshotIndex, m.Snapshot) {
@@ -199,6 +204,7 @@ func (cfg *config) applierSnap(i int, applyCh chan ApplyMsg) {
 			cfg.mu.Unlock()
 		} else if m.CommandValid && m.CommandIndex > lastApplied {
 			//DPrintf("apply %v lastApplied %v\n", m.CommandIndex, lastApplied)
+			Debug(dPersist, "S%d apply %v lastApplied %v", i, m.CommandIndex, lastApplied)
 			cfg.mu.Lock()
 			err_msg, prevok := cfg.checkLogs(i, m)
 			cfg.mu.Unlock()
@@ -217,7 +223,9 @@ func (cfg *config) applierSnap(i int, applyCh chan ApplyMsg) {
 				e := labgob.NewEncoder(w)
 				v := m.Command
 				e.Encode(v)
+				Debug(dSnap, "S%d Service start Snapshot %v trim log index %d", i, m.CommandIndex, m.CommandIndex)
 				cfg.rafts[i].Snapshot(m.CommandIndex, w.Bytes())
+				Debug(dSnap, "S%d Service end Snapshot %v", i, m.CommandIndex)
 			}
 		} else {
 			// Ignore other types of ApplyMsg or old
@@ -230,13 +238,11 @@ func (cfg *config) applierSnap(i int, applyCh chan ApplyMsg) {
 	}
 }
 
-//
 // start or re-start a Raft.
 // if one already exists, "kill" it first.
 // allocate new outgoing port file names, and a new
 // state persister, to isolate previous instance of
 // this server. since we cannot really kill it.
-//
 func (cfg *config) start1(i int, applier func(int, chan ApplyMsg)) {
 	cfg.crash1(i)
 
