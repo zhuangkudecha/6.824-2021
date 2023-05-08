@@ -17,14 +17,6 @@ package raft
 //   in the same server.
 //
 
-// TODO：
-// 原本使用len(log) 来判断log的index 和长度，但是现在使用snapshot之后，不能通过log的长度来判断
-// 解决方法：
-// 			1. 在log结构中新增一个index 字段
-//			2. 通过lastIncludeIndex 和 lastIncludeTerm 结合起来进行判断
-
-// lastIncludeIndex : the index of last included log in snapshot
-// lastIncludeTerm : the term of last included log in snapshot
 import (
 	//	"bytes"
 	"bytes"
@@ -124,7 +116,7 @@ func (rf *Raft) GetState() (int, bool) {
 	defer rf.mu.Unlock()
 	// Your code here (2A).
 	term = rf.currentTerm
-	isleader = (rf.me == rf.leaderIndex)
+	isleader = (rf.role == ROLE_LEADER)
 	return term, isleader
 }
 
@@ -209,7 +201,6 @@ func (rf *Raft) CondInstallSnapshot(lastIncludedTerm int, lastIncludedIndex int,
 		rf.snapshot = snapshot
 		Debug(dSnap, "S%d persist state and snapshot", rf.me)
 		rf.persistStateAndSnapshot(snapshot)
-		// rf.persister.SaveStateAndSnapshot(rf.persister.ReadRaftState(), snapshot)
 	}()
 
 	// the log contains the snapshot trim the outdated log
@@ -262,20 +253,31 @@ func (rf *Raft) InstallSnapshot(arg *InstallSnapshotArgs, reply *InstallSnapshot
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 	reply.Term = rf.currentTerm
-	// reply immediately if term < currentTerm
-	if arg.Term < rf.currentTerm {
+
+	switch {
+	case arg.Term < rf.currentTerm:
 		Debug(dSnap, "S%d [InstallSnapshot] term %v < currentTerm %v, reply immediately", rf.me, arg.Term, rf.currentTerm)
 		return
+
+	case arg.Term > rf.currentTerm:
+		rf.currentTerm = arg.Term
+		rf.persist()
+		if rf.role != ROLE_FOLLOW {
+			rf.role = ROLE_FOLLOW
+		}
+
+	case arg.Term == rf.currentTerm:
+		if rf.role == ROLE_LEADER {
+			Debug(dError, "S%d get snapshot from another leader S%d", rf.me, arg.LeaderId)
+		} else if rf.role == ROLE_CANDIDATE {
+			rf.role = ROLE_FOLLOW
+		}
 	}
-	// discard snapshot with a smaller index
 	if arg.LastIncludedIndex <= rf.lastIncludedIndex {
 		Debug(dSnap, "S%d [InstallSnapshot] arg.LastIncludedIndex %v <= rf.lastIncludedIndex %v, discard any existing or partial snapshot with a smaller index", rf.me, arg.LastIncludedIndex, rf.lastIncludedIndex)
 		return
 	}
-
-	Debug(dSnap, "S%d [InstallSnapshot] reset state machine using snapshot contents, rf.lastIncludedIndex %v", rf.me, rf.lastIncludedIndex)
-
-	// send snapshot to applyCh. whether need to use goroutine?
+	rf.lastActiveTime = time.Now()
 	applyMsg := ApplyMsg{
 		SnapshotValid: true,
 		Snapshot:      arg.Snapshot,
@@ -285,20 +287,65 @@ func (rf *Raft) InstallSnapshot(arg *InstallSnapshotArgs, reply *InstallSnapshot
 	go func() {
 		rf.applyCh <- applyMsg
 	}()
+	// reply immediately if term < currentTerm
+	// if arg.Term < rf.currentTerm {
+	// 	Debug(dSnap, "S%d [InstallSnapshot] term %v < currentTerm %v, reply immediately", rf.me, arg.Term, rf.currentTerm)
+	// 	return
+	// }
+	// // discard snapshot with a smaller index
+	// if arg.LastIncludedIndex <= rf.lastIncludedIndex {
+	// 	Debug(dSnap, "S%d [InstallSnapshot] arg.LastIncludedIndex %v <= rf.lastIncludedIndex %v, discard any existing or partial snapshot with a smaller index", rf.me, arg.LastIncludedIndex, rf.lastIncludedIndex)
+	// 	return
+	// }
+
+	// Debug(dSnap, "S%d [InstallSnapshot] reset state machine using snapshot contents, rf.lastIncludedIndex %v", rf.me, rf.lastIncludedIndex)
+
+	// // send snapshot to applyCh. whether need to use goroutine?
+	// applyMsg := ApplyMsg{
+	// 	SnapshotValid: true,
+	// 	Snapshot:      arg.Snapshot,
+	// 	SnapshotTerm:  arg.LastIncludedTerm,
+	// 	SnapshotIndex: arg.LastIncludedIndex,
+	// }
+	// go func() {
+	// 	rf.applyCh <- applyMsg
+	// }()
 }
 
-func (rf *Raft) sendSnapshot(id int, args InstallSnapshotArgs) {
+func (rf *Raft) sendSnapshot(id int, args InstallSnapshotArgs, currentTerm int) {
+
 	reply := InstallSnapshotReply{}
 	ok := rf.peers[id].Call("Raft.InstallSnapshot", &args, &reply)
-	if !ok {
-		return
+
+	if ok && !rf.killed() {
+		Debug(dSnap, "S%d [sendSnapshot] to S%d get reply", rf.me, id)
+		rf.mu.Lock()
+		defer rf.mu.Unlock()
+		if rf.currentTerm != currentTerm || rf.role != ROLE_LEADER || reply.Term > rf.currentTerm {
+			Debug(dSnap, "S%d sendSnapshot to S%d but failed", rf.me, id)
+			if reply.Term > rf.currentTerm {
+				rf.role = ROLE_FOLLOW
+				rf.currentTerm = reply.Term
+				rf.persist()
+				rf.lastActiveTime = time.Now()
+			}
+			return
+		}
+		Debug(dSnap, "S%d sendSnapshot to S%d success", rf.me, id)
+		rf.nextIdexs[id] = args.LastIncludedIndex + 1
+		rf.matchIndexs[id] = rf.lastIncludedIndex
+
 	}
-	if reply.Term > rf.currentTerm {
-		rf.role = ROLE_FOLLOW
-		return
-	}
-	rf.nextIdexs[id] = rf.lastIncludedIndex + 1
-	rf.matchIndexs[id] = rf.lastIncludedIndex
+
+	// if reply.Term > rf.currentTerm {
+	// 	rf.role = ROLE_FOLLOW
+	// 	return
+	// }
+	// if !ok {
+	// 	return
+	// }
+	// rf.nextIdexs[id] = rf.lastIncludedIndex + 1
+	// rf.matchIndexs[id] = rf.lastIncludedIndex
 }
 
 // example RequestVote RPC arguments structure.
@@ -355,9 +402,6 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	// 1. 当前node 的log index = 0
 	// 2. 请求的最后一个index的term 大于当前node 的最后一个index 的term
 
-	// cannot use len(rf.log) to calcute the index of log entry cause we implenmented the snapshot
-	// myLastLogIndex = rf.lastIncludedIndex + len(rf.log)
-	// myLastLogTerm := rf.log[myLastLogIndex].Term
 	myLastLogIndex := rf.lastIncludedIndex + len(rf.log)
 	if rf.votedFor == -1 || rf.votedFor == args.CandidateId {
 		// whether the candidate's log is at least as up-to-date as receiver's log
@@ -366,27 +410,29 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		// 3. the candidate's last log term is equal to the receiver's last log term
 		// and the candidate's last log index is greater than the receiver's last log index
 		Debug(dClient, "S%d myStartIndex=%d mylastLogIndex=%d", rf.me, rf.lastIncludedIndex+1, rf.lastIncludedIndex+len(rf.log))
-		if myLastLogIndex == 0 || args.LastLogTerm > rf.log[myLastLogIndex-1].Term || (args.LastLogTerm == rf.log[myLastLogIndex-1].Term && args.LastLogIndex >= myLastLogIndex) {
-			rf.votedFor = args.CandidateId
-			rf.lastActiveTime = time.Now()
-			reply.VoteGranted = true
-			rf.role = ROLE_FOLLOW
-			Debug(dClient, "S%d voted to S%d", rf.me, args.CandidateId)
-			rf.persist()
-			return
+
+		if len(rf.log) == 0 {
+			if myLastLogIndex == 0 || args.LastLogTerm > rf.lastIncludedTerm || (args.LastLogTerm == rf.lastIncludedTerm && args.LastLogIndex >= rf.lastIncludedIndex) {
+				rf.votedFor = args.CandidateId
+				rf.lastActiveTime = time.Now()
+				reply.VoteGranted = true
+				rf.role = ROLE_FOLLOW
+				Debug(dClient, "S%d voted to S%d", rf.me, args.CandidateId)
+				rf.persist()
+				return
+			}
+		} else {
+			if myLastLogIndex == 0 || args.LastLogTerm > rf.log[myLastLogIndex-rf.lastIncludedIndex-1].Term || (args.LastLogTerm == rf.log[myLastLogIndex-rf.lastIncludedIndex-1].Term && args.LastLogIndex >= myLastLogIndex) {
+				rf.votedFor = args.CandidateId
+				rf.lastActiveTime = time.Now()
+				reply.VoteGranted = true
+				rf.role = ROLE_FOLLOW
+				Debug(dClient, "S%d voted to S%d", rf.me, args.CandidateId)
+				rf.persist()
+				return
+			}
 		}
 	}
-
-	// if (rf.votedFor == -1 || rf.votedFor == args.CandidateId) && (len(rf.log) == 0 || (args.LastLogTerm > rf.log[len(rf.log)-1].Term) || (args.LastLogTerm == rf.log[len(rf.log)-1].Term && args.LastLogIndex >= len(rf.log)-1)) {
-	// 	rf.votedFor = args.CandidateId
-	// 	// rf.persist()
-	// 	// 成功投票，刷新自己的心跳时间
-	// 	rf.lastActiveTime = time.Now()
-	// 	reply.VoteGranted = true
-	// 	// rf.role = ROLE_FOLLOW
-	// 	Debug(dClient, "S%d voted to S%d", rf.me, args.CandidateId)
-	// 	return
-	// }
 	reply.VoteGranted = false
 }
 
@@ -440,135 +486,100 @@ type AppendEntriesReplay struct {
 	ConflictLen   int
 }
 
-// appendEntries rpc handler
-// resets the election timeouts so
-// the other servers donot step forward as leaders when has already been elected
-func (rf *Raft) AppendEntries(arg *AppendEntriesArgs, replay *AppendEntriesReplay) {
+func (rf *Raft) AppendEntries(arg *AppendEntriesArgs, reply *AppendEntriesReplay) {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	// defer rf.persist()
 	Debug(dLog, "S%d Handle AppendEntries, LeaderId%d Term%d CurrentTerm%d role=[%s]",
 		rf.me, arg.LeaderId, arg.Term, rf.currentTerm, rf.role)
 	defer func() {
 		Debug(dLog, "S%d Return AppendEntries, LeaderId%d Term%d CurrentTerm%d role=[%s]",
 			rf.me, arg.LeaderId, arg.Term, rf.currentTerm, rf.role)
+		reply.Term = rf.currentTerm
 	}()
+	reply.ConflictIndex = -1
+	reply.ConflictTerm = -1
 
-	replay.Term = rf.currentTerm
-	replay.Success = false
+	switch {
+	case arg.Term < rf.currentTerm:
+		Debug(dError, "S%d currentTerm %d got a outdated AppendEntries from S%d term %d ", rf.me, rf.currentTerm, arg.LeaderId, arg.Term)
+		reply.Success = false
+		return
 
-	// replay false if log does not contain an entry
-	// at prevLogIndex whose term matches prevLogTerm
-	// 请求的任期小于当前执行的任期，需要拒绝这次请求
+	case arg.Term > rf.currentTerm:
+		Debug(dError, "S%d currentTerm %d are outdated by S%d term %d, convert to follower", rf.me, rf.currentTerm, arg.LeaderId, arg.Term)
+		rf.currentTerm = arg.Term
+		rf.persist()
 
-	if arg.Term < rf.currentTerm {
-		Debug(dLog, "S%d Reject AppendEntries, LeaderId%d Term%d CurrentTerm%d role=[%s]", rf.me, arg.LeaderId, arg.Term, rf.currentTerm, rf.role)
+		if rf.role != ROLE_FOLLOW {
+			rf.role = ROLE_FOLLOW
+		}
+
+	case arg.Term == rf.currentTerm:
+		// normal
+		if rf.role == ROLE_CANDIDATE {
+			rf.role = ROLE_FOLLOW
+		}
+	}
+
+	if arg.PrevLogIndex < rf.lastIncludedIndex {
+		reply.Success = false
+		Debug(dError, "S%d Reject AppendEntries, LeaderId%d Term%d CurrentTerm%d role=[%s] because arg.PrevLogIndex %d < rf.lastIncludedIndex %d", rf.me, arg.LeaderId, arg.Term, rf.currentTerm, rf.role, arg.PrevLogIndex, rf.lastIncludedIndex)
 		return
 	}
 
-	// 接收到leader的appendenties reset timer
 	rf.lastActiveTime = time.Now()
 
-	// if received frim new leader: convert to follower
-	if arg.Term > rf.currentTerm || rf.role == ROLE_CANDIDATE {
-		Debug(dClient, "S%d convert to follower, LeaderId%d Term%d CurrentTerm%d role=[%s]", rf.me, arg.LeaderId, arg.Term, rf.currentTerm, rf.role)
-		// 进入新的一轮，重置一些数据
-		rf.currentTerm = arg.Term
-		rf.role = ROLE_FOLLOW
-		rf.votedFor = -1
-		rf.leaderIndex = -1
-		rf.persist()
-	}
+	if arg.PrevLogIndex > 0 && ((arg.PrevLogIndex > (rf.lastIncludedIndex + len(rf.log))) || (arg.PrevLogIndex == rf.lastIncludedIndex && rf.lastIncludedTerm != arg.PrevLogTerm) || (arg.PrevLogIndex > rf.lastIncludedIndex && rf.log[arg.PrevLogIndex-rf.lastIncludedIndex-1].Term != arg.PrevLogTerm)) {
+		Debug(dError, "S%d lastIncludeLogIndex %d log dismatch with S%d agrs.PrevLogIndex %d ", rf.me, rf.lastIncludedIndex, arg.LeaderId, arg.PrevLogIndex)
+		reply.Success = false
 
-	rf.leaderIndex = arg.LeaderId
-
-	// 1.reply false if log doesnot contain an entry
-	// at prevLogIndex whose term matches prevLogTerm
-	myLastLogIndex := rf.lastIncludedIndex + len(rf.log)
-
-	if arg.PrevLogIndex > 0 && (arg.PrevLogIndex > myLastLogIndex || (arg.PrevLogIndex > rf.lastIncludedIndex && rf.log[arg.PrevLogIndex-rf.lastIncludedIndex-1].Term != arg.PrevLogTerm)) {
-
-		Debug(dError, "S%d has more log than S%d or term misMatches ", rf.me, arg.LeaderId)
-		if arg.PrevLogIndex >= myLastLogIndex {
-			Debug(dError, "S%d lastLogIndex=%d, while arg.PrevLogIndex=%d", rf.me, myLastLogIndex, arg.PrevLogIndex)
+		if arg.PrevLogIndex > (rf.lastIncludedIndex + len(rf.log)) {
+			reply.ConflictIndex = rf.lastIncludedIndex + 1
+			reply.ConflictTerm = -1
+			Debug(dError, "S%d Reject AppendEntries, LeaderId%d Term%d CurrentTerm%d role=[%s] because arg.PrevLogIndex %d > rf.lastIncludedIndex %d + len(rf.log) %d", rf.me, arg.LeaderId, arg.Term, rf.currentTerm, rf.role, arg.PrevLogIndex, rf.lastIncludedIndex, len(rf.log))
+			return
 		}
-		replay.Term, replay.Success = rf.currentTerm, false
-		replay.ConflictLen = len(rf.log) // TODO check here maybe wrong shorter will not cause bugs
-		if arg.PrevLogIndex >= 0 && arg.PrevLogIndex <= myLastLogIndex {
-			Debug(dError, "S%d has more log than S%d / term misMatches ", rf.me, arg.LeaderId)
-			replay.ConflictTerm = rf.log[arg.PrevLogIndex-rf.lastIncludedIndex-1].Term
-
+		if rf.lastIncludedIndex == arg.PrevLogIndex {
+			reply.ConflictTerm = rf.lastIncludedTerm
+			reply.ConflictIndex = rf.lastIncludedIndex
+			Debug(dError, "S%d lastIncludeLogIndex %d lastIncludedTerm %d mismathch with argprevLogIndex %d argprevLogTerm %d ", rf.me, rf.lastIncludedIndex, rf.lastIncludedTerm, arg.PrevLogIndex, arg.PrevLogTerm)
+			return
+		}
+		if rf.log[arg.PrevLogIndex-rf.lastIncludedIndex-1].Term != arg.PrevLogTerm {
+			reply.ConflictTerm = rf.log[arg.PrevLogIndex-rf.lastIncludedIndex-1].Term
+			conflictTermIndex := arg.PrevLogIndex
 			// find the first log index with the conflict term
-			for i := arg.PrevLogIndex; i > rf.lastIncludedIndex; i-- {
-				if rf.log[i-rf.lastIncludedIndex-1].Term == replay.ConflictTerm {
-					replay.ConflictIndex = i
-				}
+			for conflictTermIndex > rf.lastIncludedIndex && rf.log[conflictTermIndex-rf.lastIncludedIndex-1].Term == reply.ConflictTerm {
+				conflictTermIndex--
 			}
+			reply.ConflictIndex = conflictTermIndex + 1
+			Debug(dError, "S%d Reject AppendEntries, LeaderId%d PrevgTerm%d role=[%s] because ConfilcitIndex%d mismatch with mylogTerm", rf.me, arg.LeaderId, arg.PrevLogTerm, rf.role, reply.ConflictIndex, rf.log[reply.ConflictIndex-rf.lastIncludedIndex-1].Term)
+			return
 		}
-		return
 	}
 
-	/*
-		before lab2D code
-	*/
-	// if arg.PrevLogIndex >= len(rf.log) || (arg.PrevLogIndex >= 0 && rf.log[arg.PrevLogIndex].Term != arg.PrevLogTerm) {
-	// 	replay.Term, replay.Success = rf.currentTerm, false
-	// 	replay.ConflictLen = len(rf.log)
-	// 	if arg.PrevLogIndex >= 0 && arg.PrevLogIndex < len(rf.log) {
-	// 		// DPrintf("S%d has more log than S%d / term misMatches ", rf.me, arg.LeaderId)
-	// 		Debug(dError, "S%d has more log than S%d / term misMatches ", rf.me, arg.LeaderId)
-
-	// 		replay.ConflictTerm = rf.log[arg.PrevLogIndex].Term
-	// 		for i := arg.PrevLogIndex; i >= 0; i-- {
-	// 			if rf.log[i].Term == replay.ConflictTerm {
-	// 				replay.ConflictIndex = i
-	// 			} else {
-	// 				break
-	// 			}
-	// 		}
-	// 	}
-	// 	return
-	// }
-
-	// 2 if an existing entry conflicts with a new
-	// one(same index but different terms) delete the existing entry and all that follow it
-	Debug(dLog, "S%d AppendEntries, LeaderId%d Term%d CurrentTerm%d role=[%s], %d entries to append", rf.me, arg.LeaderId, arg.Term, rf.currentTerm, rf.role, len(arg.Entries))
+	Debug(dLog, "S%d success AppendEntries, LeaderId%d Term%d CurrentTerm%d role=[%s], %d entries to append", rf.me, arg.LeaderId, arg.Term, rf.currentTerm, rf.role, len(arg.Entries))
+	reply.Success = true
 	var i int
 	for i = 0; i < len(arg.Entries); i++ {
-		if arg.PrevLogIndex+1+i > myLastLogIndex {
+		if arg.PrevLogIndex+1+i > rf.lastIncludedIndex+len(rf.log) {
 			break
 		}
 		if arg.Entries[i].Term == rf.log[arg.PrevLogIndex+i+1-rf.lastIncludedIndex-1].Term {
 			continue
 		}
-
-		// if an exist entry conflicts with a new one
-		// (same index but different terms)
-		// delete the existing entry and all that follow it
-		Debug(dLog, "S%d delete log from %d to %d cause confict with new one", rf.me, arg.PrevLogIndex+1+i, myLastLogIndex)
 		rf.log = rf.log[:arg.PrevLogIndex+1+i-rf.lastIncludedIndex-1]
 		rf.persist()
 		break
 	}
-	// append the entry not in the log
+	// append the other entries
 	for j := i; j < len(arg.Entries); j++ {
 		rf.log = append(rf.log, arg.Entries[j])
 	}
 	rf.persist()
 
-	/*
-		before lab2D code
-	*/
-	// misMatchIndex := -1
-	// for i := range arg.Entries {
-	// 	if arg.PrevLogIndex+1+i >= len(rf.log) || rf.log[arg.PrevLogIndex+1+i].Term != arg.Entries[i].Term {
-	// 		misMatchIndex = i
-	// 		break
-	// 	}
-	// }
-
 	if arg.LeaderCommit > rf.cimmitIndex {
-		newEntryIndex := myLastLogIndex
+		newEntryIndex := rf.lastIncludedIndex + len(rf.log)
 		if arg.LeaderCommit >= newEntryIndex {
 			rf.cimmitIndex = newEntryIndex
 		} else {
@@ -578,25 +589,121 @@ func (rf *Raft) AppendEntries(arg *AppendEntriesArgs, replay *AppendEntriesRepla
 		rf.sendApplyMsg()
 	}
 
-	/*
-		before lab2D code
-	*/
-	// 4 if leaderCommit > commitIndex set commitIndex = min(leaderCommit, index of last new entry)
-	// if arg.LeaderCommit > rf.cimmitIndex {
-	// 	newEntryIndex := len(rf.log) - 1
-	// 	if arg.LeaderCommit >= newEntryIndex {
-	// 		rf.cimmitIndex = newEntryIndex
-	// 	} else {
-	// 		rf.cimmitIndex = arg.LeaderCommit
-	// 	}
-
-	// 	Debug(dCommit, "S%d commit index %d", rf.me, rf.cimmitIndex)
-
-	// 	rf.sendApplyMsg()
-	// }
-	replay.Term = rf.currentTerm
-	replay.Success = true
 }
+
+// appendEntries rpc handler
+// resets the election timeouts so
+// the other servers donot step forward as leaders when has already been elected
+// func (rf *Raft) AppendEntries(arg *AppendEntriesArgs, replay *AppendEntriesReplay) {
+// 	rf.mu.Lock()
+// 	defer rf.mu.Unlock()
+// 	// defer rf.persist()
+// 	Debug(dLog, "S%d Handle AppendEntries, LeaderId%d Term%d CurrentTerm%d role=[%s]",
+// 		rf.me, arg.LeaderId, arg.Term, rf.currentTerm, rf.role)
+// 	defer func() {
+// 		Debug(dLog, "S%d Return AppendEntries, LeaderId%d Term%d CurrentTerm%d role=[%s]",
+// 			rf.me, arg.LeaderId, arg.Term, rf.currentTerm, rf.role)
+// 	}()
+
+// 	replay.Term = rf.currentTerm
+// 	replay.Success = false
+
+// 	// replay false if log does not contain an entry
+// 	// at prevLogIndex whose term matches prevLogTerm
+// 	// 请求的任期小于当前执行的任期，需要拒绝这次请求
+
+// 	if arg.Term < rf.currentTerm {
+// 		Debug(dLog, "S%d Reject AppendEntries, LeaderId%d Term%d CurrentTerm%d role=[%s]", rf.me, arg.LeaderId, arg.Term, rf.currentTerm, rf.role)
+// 		return
+// 	}
+
+// 	// 接收到leader的appendenties reset timer
+// 	rf.lastActiveTime = time.Now()
+
+// 	// if received frim new leader: convert to follower
+// 	if arg.Term > rf.currentTerm || rf.role == ROLE_CANDIDATE {
+// 		Debug(dClient, "S%d convert to follower, LeaderId%d Term%d CurrentTerm%d role=[%s]", rf.me, arg.LeaderId, arg.Term, rf.currentTerm, rf.role)
+// 		// 进入新的一轮，重置一些数据
+// 		rf.currentTerm = arg.Term
+// 		rf.role = ROLE_FOLLOW
+// 		rf.votedFor = -1
+// 		rf.leaderIndex = -1
+// 		rf.persist()
+// 	}
+
+// 	rf.leaderIndex = arg.LeaderId
+
+// 	if arg.PrevLogIndex < rf.lastIncludedIndex {
+// 		replay.Success = false
+// 		return
+// 	}
+
+// 	// 1.reply false if log doesnot contain an entry
+// 	// at prevLogIndex whose term matches prevLogTerm
+// 	myLastLogIndex := rf.lastIncludedIndex + len(rf.log)
+// 	Debug(dLog, "S%d lastIncludedIndex=%d, argPrevLogIndex=%d, len(rf.log)=%d", rf.me, rf.lastIncludedIndex, arg.PrevLogIndex, len(rf.log))
+// 	if arg.PrevLogIndex > 0 && (arg.PrevLogIndex > myLastLogIndex || (arg.PrevLogIndex > rf.lastIncludedIndex && rf.log[arg.PrevLogIndex-rf.lastIncludedIndex-1].Term != arg.PrevLogTerm)) {
+
+// 		Debug(dError, "S%d has more log than S%d or term misMatches ", rf.me, arg.LeaderId)
+// 		if arg.PrevLogIndex >= myLastLogIndex {
+// 			Debug(dError, "S%d lastLogIndex=%d, while arg.PrevLogIndex=%d", rf.me, myLastLogIndex, arg.PrevLogIndex)
+// 		}
+// 		replay.Term, replay.Success = rf.currentTerm, false
+// 		replay.ConflictLen = len(rf.log) // TODO check here maybe wrong shorter will not cause bugs
+// 		if arg.PrevLogIndex >= 0 && arg.PrevLogIndex <= myLastLogIndex {
+// 			Debug(dError, "S%d has more log than S%d / term misMatches ", rf.me, arg.LeaderId)
+// 			replay.ConflictTerm = rf.log[arg.PrevLogIndex-rf.lastIncludedIndex-1].Term
+
+// 			// find the first log index with the conflict term
+// 			for i := arg.PrevLogIndex; i > rf.lastIncludedIndex; i-- {
+// 				if rf.log[i-rf.lastIncludedIndex-1].Term == replay.ConflictTerm {
+// 					replay.ConflictIndex = i
+// 				}
+// 			}
+// 		}
+// 		return
+// 	}
+
+// 	// 2 if an existing entry conflicts with a new
+// 	// one(same index but different terms) delete the existing entry and all that follow it
+// 	// Debug(dLog, "S%d AppendEntries, LeaderId%d Term%d CurrentTerm%d role=[%s], %d entries to append", rf.me, arg.LeaderId, arg.Term, rf.currentTerm, rf.role, len(arg.Entries))
+// 	Debug(dLog, "S%d lastIncludedIndex=%d, argPrevLogIndex=%d, len(rf.log)=%d", rf.me, rf.lastIncludedIndex, arg.PrevLogIndex, len(rf.log))
+// 	var i int
+// 	for i = 0; i < len(arg.Entries); i++ {
+// 		if arg.PrevLogIndex+1+i > myLastLogIndex {
+// 			break
+// 		}
+// 		if arg.Entries[i].Term == rf.log[arg.PrevLogIndex+i+1-rf.lastIncludedIndex-1].Term {
+// 			continue
+// 		}
+
+// 		// if an exist entry conflicts with a new one
+// 		// (same index but different terms)
+// 		// delete the existing entry and all that follow it
+// 		Debug(dLog, "S%d delete log from %d to %d cause confict with new one", rf.me, arg.PrevLogIndex+1+i, myLastLogIndex)
+// 		rf.log = rf.log[:arg.PrevLogIndex+1+i-rf.lastIncludedIndex-1]
+// 		rf.persist()
+// 		break
+// 	}
+// 	// append the entry not in the log
+// 	for j := i; j < len(arg.Entries); j++ {
+// 		rf.log = append(rf.log, arg.Entries[j])
+// 	}
+// 	rf.persist()
+
+// 	if arg.LeaderCommit > rf.cimmitIndex {
+// 		newEntryIndex := myLastLogIndex
+// 		if arg.LeaderCommit >= newEntryIndex {
+// 			rf.cimmitIndex = newEntryIndex
+// 		} else {
+// 			rf.cimmitIndex = arg.LeaderCommit
+// 		}
+// 		Debug(dCommit, "S%d commit index %d", rf.me, rf.cimmitIndex)
+// 		rf.sendApplyMsg()
+// 	}
+// 	replay.Term = rf.currentTerm
+// 	replay.Success = true
+// }
 
 func (rf *Raft) sendAppendEntries(server int, args *AppendEntriesArgs, replay *AppendEntriesReplay) bool {
 	ok := rf.peers[server].Call("Raft.AppendEntries", args, replay)
@@ -637,15 +744,17 @@ func (rf *Raft) broadcastAppendEntries() {
 		}
 		rf.lastBroadcastTime = time.Now()
 
-		if rf.nextIdexs[i] <= rf.lastIncludedIndex {
+		if rf.nextIdexs[i]-1 < rf.lastIncludedIndex {
 			// the follower is behind the snapshot need to send snapshot
+			Debug(dSnap, "S%d send snapshot to S%d because the nextId%d for S%d is behind rfLastIncludedLogIndex%d ", rf.me, i, rf.nextIdexs[i], i, rf.lastIncludedIndex)
+			currentTerm := rf.currentTerm
 			go rf.sendSnapshot(i, InstallSnapshotArgs{
 				Term:              rf.currentTerm,
 				LeaderId:          rf.me,
 				LastIncludedIndex: rf.lastIncludedIndex,
 				LastIncludedTerm:  rf.lastIncludedTerm,
 				Snapshot:          rf.snapshot,
-			})
+			}, currentTerm)
 		} else {
 			// else send appendEntries normally
 			prevLogIndex := rf.nextIdexs[i] - 1
@@ -653,6 +762,8 @@ func (rf *Raft) broadcastAppendEntries() {
 
 			if prevLogIndex > rf.lastIncludedIndex {
 				prevLogTerm = rf.log[prevLogIndex-rf.lastIncludedIndex-1].Term
+			} else if prevLogIndex == rf.lastIncludedIndex {
+				prevLogTerm = rf.lastIncludedTerm
 			}
 			/*
 				before lab2D code
@@ -688,7 +799,9 @@ func (rf *Raft) broadcastAppendEntries() {
 
 			go func(id int, args1 *AppendEntriesArgs, term int) {
 				reply := AppendEntriesReplay{}
+				Debug(dLeader, "S%d send AppendEntries to S%d", rf.me, id)
 				if ok := rf.sendAppendEntries(id, args1, &reply); ok {
+					Debug(dLeader, "S%d got resp ok from S%d", rf.me, id)
 					rf.mu.Lock()
 					defer rf.mu.Unlock()
 					if reply.Term > rf.currentTerm {
@@ -721,39 +834,58 @@ func (rf *Raft) broadcastAppendEntries() {
 								}
 							}
 						} else {
+							Debug(dLeader, "S%d get false from S%d", rf.me, id)
 							// 更新失败，找到冲突的index 和term
 							// TODO take care
-							rf.nextIdexs[id] = prevLogIndex
-							if rf.nextIdexs[id]-1 >= reply.ConflictLen {
-								//case 3 the follower's log is too short
-								rf.nextIdexs[id] = reply.ConflictLen
-							} else {
-								has := false
-								for i := rf.nextIdexs[id]; i >= reply.ConflictIndex; i-- {
-									// case 2 leader has conflict term in its log, nextIndex = leader's last entry for ConflictTerm
-									if i > rf.lastIncludedIndex {
-										if rf.log[i-rf.lastIncludedIndex-1].Term != reply.ConflictTerm {
-											has = true
-											rf.nextIdexs[id] -= 1
-										} else {
-											break
-										}
-									}
-								}
-
-								// case 1 leader does not have conflict term in its log nextIndex = conflictIndex
-								if !has {
-									rf.nextIdexs[id] = reply.ConflictIndex
-								}
-
-								// for i := rf.nextIdexs[id] - 1; i >= reply.ConflictIndex; i-- {
-								// 	if rf.log[i].Term != reply.ConflictTerm {
-								// 		rf.nextIdexs[id] -= 1
-								// 	} else {
-								// 		break
-								// 	}
-								// }
+							tmp := rf.nextIdexs[id]
+							if reply.ConflictIndex == -1 {
+								// replay to outdated request
+								Debug(dError, "S%d next index %d for S%d is outdated", rf.me, rf.nextIdexs[id], id)
+								return
 							}
+							if reply.ConflictTerm == -1 {
+								// followers log shorter than rf.next[id]
+								Debug(dError, "S%d next index %d for S%d is too long", rf.me, rf.nextIdexs[id], id)
+								rf.nextIdexs[id] = reply.ConflictIndex
+							} else if reply.ConflictTerm < args1.PrevLogTerm {
+								Debug(dError, "S%d argPrevLogTerm %d mis match with S%d ConglictTerm %d, ConflictIndex %d ", rf.me, args1.PrevLogTerm, id, reply.ConflictTerm, reply.ConflictIndex)
+								// go back to last term of the leader
+								for rf.nextIdexs[id] > rf.lastIncludedIndex+1 && rf.log[rf.nextIdexs[id]-1-rf.lastIncludedIndex-1].Term == args1.PrevLogTerm {
+									rf.nextIdexs[id]--
+								}
+								if rf.nextIdexs[id] != 1 && rf.nextIdexs[id] == rf.lastIncludedIndex+1 && rf.lastIncludedTerm == args1.PrevLogTerm {
+									// we are hitting the snapshot
+									rf.nextIdexs[id]--
+								}
+							} else {
+								// reply.ConflictTerm > args1.PrevLogIndex
+								// go back to last term of the follower
+								rf.nextIdexs[id] = reply.ConflictIndex
+							}
+							Debug(dLog, "S%d nextIndex[%d] %d -> %d", rf.me, id, tmp, rf.nextIdexs[id])
+							// rf.nextIdexs[id] = prevLogIndex
+							// if rf.nextIdexs[id]-1 >= reply.ConflictLen {
+							// 	//case 3 the follower's log is too short
+							// 	rf.nextIdexs[id] = reply.ConflictLen
+							// } else {
+							// 	has := false
+							// 	for i := rf.nextIdexs[id]; i >= reply.ConflictIndex; i-- {
+							// 		// case 2 leader has conflict term in its log, nextIndex = leader's last entry for ConflictTerm
+							// 		if i > rf.lastIncludedIndex {
+							// 			if rf.log[i-rf.lastIncludedIndex-1].Term != reply.ConflictTerm {
+							// 				has = true
+							// 				rf.nextIdexs[id] -= 1
+							// 			} else {
+							// 				break
+							// 			}
+							// 		}
+							// 	}
+
+							// 	// case 1 leader does not have conflict term in its log nextIndex = conflictIndex
+							// 	if !has {
+							// 		rf.nextIdexs[id] = reply.ConflictIndex
+							// 	}
+							// }
 						}
 					}
 					Debug(dLeader, "S%d appendEntries ends, peerTerm%d myCurrentTerm%d myRole[%s]", rf.me, reply.Term, rf.currentTerm, rf.role)
@@ -771,34 +903,25 @@ func (rf *Raft) sendApplyMsg() {
 }
 
 func (rf *Raft) appMsgApplier() {
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
 	for !rf.killed() {
-		rf.mu.Lock()
-		defer rf.mu.Unlock()
-		for !rf.moreApply {
-			rf.applyCond.Wait()
-		}
-		time.Sleep(time.Duration(10) * time.Millisecond)
-		commitIndex := rf.cimmitIndex
-		lastApplied := rf.lastApplied
-		entries := rf.log
-		rf.moreApply = false
-		Debug(dCommit, "S%d start apply index from lastAppiedIndex %d to CommitIndex %d length of log is %d", rf.me, rf.lastApplied, rf.cimmitIndex, len(rf.log))
-		for i := lastApplied + 1; i <= commitIndex; i++ {
-			Debug(dCommit, "S%d start apply index %d, lastIncludeIndex %d current log length is %d", rf.me, i, rf.lastIncludedIndex, len(rf.log))
+		// rf.mu.Lock()
+		// defer rf.mu.Unlock()
+		if rf.cimmitIndex > rf.lastApplied {
+			rf.lastApplied++
+			Debug(dCommit, "S%d start apply index %d, lastIncludeIndex %d current log length is %d", rf.me, rf.lastApplied, rf.lastIncludedIndex, len(rf.log))
 			msg := ApplyMsg{
 				CommandValid: true,
-				Command:      entries[i-1-rf.lastIncludedIndex].Command,
-				CommandIndex: i,
+				Command:      rf.log[rf.lastApplied-rf.lastIncludedIndex-1].Command,
+				CommandIndex: rf.lastApplied,
 			}
 			rf.mu.Unlock()
-			// must not holding the lock when sending the applyMsg
 			rf.applyCh <- msg
 			rf.mu.Lock()
-			rf.lastApplied = i
-			Debug(dCommit, "S%d applied index %d successfully", rf.me, i)
+		} else {
+			rf.applyCond.Wait()
 		}
-		Debug(dCommit, "S%d apply index end", rf.me)
-		// rf.mu.Unlock()
 	}
 }
 func (rf *Raft) ticker_Vote() {
@@ -875,6 +998,9 @@ func (rf *Raft) broadcastVote() {
 		lastLogTerm := -1
 		if lastLogIndex > rf.lastIncludedIndex {
 			lastLogTerm = rf.log[lastLogIndex-rf.lastIncludedIndex-1].Term
+		}
+		if lastLogIndex == rf.lastIncludedIndex {
+			lastLogTerm = rf.lastIncludedTerm
 		}
 
 		args := RequestVoteArgs{
@@ -957,41 +1083,61 @@ func (rf *Raft) broadcastVote() {
 // term. the third return value is true if this server believes it is
 // the leader.
 func (rf *Raft) Start(command interface{}) (int, int, bool) {
-	index := -1
-	term := -1
-	isLeader := true
-
-	// Your code here (2B).
-	if rf.killed() {
-		return index, term, false
-	}
-
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	// defer rf.persist()
 
-	isLeader = rf.role == ROLE_LEADER
-	if isLeader {
-		log := LogEntry{
-			Term:    rf.currentTerm,
-			Command: command,
-		}
-		rf.log = append(rf.log, log)
+	index := rf.lastIncludedIndex + len(rf.log) + 1
+	term := rf.currentTerm
+	isLeader := rf.role == ROLE_LEADER
 
-		index = rf.lastIncludedIndex + len(rf.log)
-		// index = len(rf.log) - 1
-		term = rf.currentTerm
-
-		rf.matchIndexs[rf.me] = index
-		rf.nextIdexs[rf.me] = index + 1
-
-		// rf.matchIndexs[rf.me] = len(rf.log) - 1
-		// rf.nextIdexs[rf.me] = len(rf.log)
-		Debug(dLeader, "S%d append command: index: %d, term: %d", rf.me, index, term)
-		rf.persist()
+	if !isLeader {
+		return index, term, isLeader
 	}
-	Debug(dClient, "S%d start lastIncludeLogIndex=%d", rf.me, rf.lastIncludedIndex)
+
+	rf.log = append(rf.log, LogEntry{Term: rf.currentTerm, Command: command})
+	rf.persist()
+	rf.matchIndexs[rf.me] = index
+	rf.nextIdexs[rf.me] = index + 1
+	Debug(dLeader, "S%d append command: index: %d, term: %d", rf.me, index, term)
 	return index, term, isLeader
+
+	// index := -1
+	// term := -1
+	// isLeader := true
+
+	// // Your code here (2B).
+	// if rf.killed() {
+	// 	return index, term, false
+	// }
+
+	// rf.mu.Lock()
+	// defer rf.mu.Unlock()
+	// // defer rf.persist()
+	// index = rf.lastIncludedIndex + len(rf.log) + 1
+	// term = rf.currentTerm
+	// isLeader = rf.role == ROLE_LEADER
+
+	// if isLeader {
+	// 	log := LogEntry{
+	// 		Term:    rf.currentTerm,
+	// 		Command: command,
+	// 	}
+	// 	rf.log = append(rf.log, log)
+
+	// 	index = rf.lastIncludedIndex + len(rf.log)
+	// 	// index = len(rf.log) - 1
+	// 	term = rf.currentTerm
+
+	// 	rf.matchIndexs[rf.me] = index
+	// 	rf.nextIdexs[rf.me] = index + 1
+
+	// 	// rf.matchIndexs[rf.me] = len(rf.log) - 1
+	// 	// rf.nextIdexs[rf.me] = len(rf.log)
+	// 	Debug(dLeader, "S%d append command: index: %d, term: %d", rf.me, index, term)
+	// 	rf.persist()
+	// }
+	// Debug(dClient, "S%d start lastIncludeLogIndex=%d", rf.me, rf.lastIncludedIndex)
+	// return index, term, isLeader
 }
 
 // the tester doesn't halt goroutines created by Raft after each test,
@@ -1013,18 +1159,6 @@ func (rf *Raft) killed() bool {
 	return z == 1
 }
 
-// The ticker go routine starts a new election if this peer hasn't received
-// heartsbeats recently.
-func (rf *Raft) ticker() {
-	for rf.killed() == false {
-
-		// Your code here to check if a leader election should
-		// be started and to randomize sleeping time using
-		time.Sleep(10 * time.Millisecond)
-
-	}
-}
-
 // the service or tester wants to create a Raft server. the ports
 // of all the Raft servers (including this one) are in peers[]. this
 // server's port is peers[me]. all the servers' peers[] arrays
@@ -1042,6 +1176,19 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.me = me
 
 	// Your initialization code here (2A, 2B, 2C).
+	// inilized from state persisted after a crash
+	// rf.readPersist(persister.ReadRaftState())
+	// rf.snapshot = persister.ReadSnapshot()
+
+	// initialize volatile fields:
+	// rf.cimmitIndex = 0
+	// rf.lastApplied = rf.lastIncludedIndex
+
+	// rf.role = ROLE_FOLLOW
+	// rf.applyCh = applyCh
+	// rf.applyCond = sync.NewCond(&rf.mu)
+	// rf.moreApply = false
+
 	rf.role = ROLE_FOLLOW
 	rf.leaderIndex = -1
 	rf.votedFor = -1
@@ -1051,8 +1198,6 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.currentTerm = 0
 
 	rf.log = make([]LogEntry, 0)
-	rf.cimmitIndex = 0
-	rf.lastApplied = 0
 
 	rf.nextIdexs = make([]int, len(peers))
 	rf.matchIndexs = make([]int, len(peers))
@@ -1061,8 +1206,12 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.applyCond = sync.NewCond(&rf.mu)
 	rf.lastIncludedIndex = 0
 	rf.lastIncludedTerm = 0
-	// initialize from state persisted before a crash
+	//initialize from state persisted before a crash
 	rf.readPersist(persister.ReadRaftState())
+	rf.snapshot = persister.ReadSnapshot()
+
+	rf.cimmitIndex = 0
+	rf.lastApplied = rf.lastIncludedIndex
 
 	go rf.ticker_Leader()
 	go rf.ticker_Vote()

@@ -1042,6 +1042,7 @@ func snapcommon(t *testing.T, name string, disconnect bool, reliable bool, crash
 		if disconnect {
 			Debug(dTest, "S%d disconnect~~~~", victim)
 			cfg.disconnect(victim)
+			Debug(dTest, "S%d check agreement", leader1)
 			cfg.one(rand.Int(), servers-1, true)
 		}
 		if crash {
