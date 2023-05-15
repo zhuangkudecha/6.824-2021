@@ -1091,6 +1091,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	isLeader := rf.role == ROLE_LEADER
 
 	if !isLeader {
+		Debug(dClient, "S%d is not leader return index %d to service", rf.me, index)
 		return index, term, isLeader
 	}
 
@@ -1099,6 +1100,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	rf.matchIndexs[rf.me] = index
 	rf.nextIdexs[rf.me] = index + 1
 	Debug(dLeader, "S%d append command: index: %d, term: %d", rf.me, index, term)
+	go rf.broadcastAppendEntries()
 	return index, term, isLeader
 
 	// index := -1

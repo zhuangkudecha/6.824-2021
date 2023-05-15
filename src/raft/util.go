@@ -63,7 +63,7 @@ func init() {
 	log.SetFlags(log.Flags() &^ (log.Ldate | log.Ltime))
 }
 
-const debug = 1
+const debug = 0
 
 func Debug(topic logTopic, format string, a ...interface{}) {
 	if debug >= 1 {
