@@ -44,6 +44,7 @@ type ApplyMsg struct {
 	CommandValid bool
 	Command      interface{}
 	CommandIndex int
+	CommandTerm  int
 
 	// For 2D:
 	SnapshotValid bool
@@ -826,7 +827,12 @@ func (rf *Raft) broadcastAppendEntries() {
 							sort.Ints(matches)
 							majority := (len(rf.peers) - 1) / 2                             // 排序后的中间 就是大多数
 							for i := majority; i >= 0 && matches[i] > rf.cimmitIndex; i-- { //TODO take care
-								if rf.log[matches[i]-rf.lastIncludedIndex-1].Term == rf.currentTerm {
+								if matches[i] == rf.lastIncludedIndex && rf.lastIncludedTerm == rf.currentTerm {
+									rf.cimmitIndex = matches[i]
+									Debug(dCommit, "S%d commit index %d", rf.me, rf.cimmitIndex)
+									rf.sendApplyMsg()
+									break
+								} else if matches[i] > rf.lastIncludedIndex && rf.log[matches[i]-rf.lastIncludedIndex-1].Term == rf.currentTerm {
 									rf.cimmitIndex = matches[i]
 									Debug(dCommit, "S%d commit index %d", rf.me, rf.cimmitIndex)
 									rf.sendApplyMsg()
@@ -915,6 +921,7 @@ func (rf *Raft) appMsgApplier() {
 				CommandValid: true,
 				Command:      rf.log[rf.lastApplied-rf.lastIncludedIndex-1].Command,
 				CommandIndex: rf.lastApplied,
+				CommandTerm:  rf.log[rf.lastApplied-rf.lastIncludedIndex-1].Term,
 			}
 			rf.mu.Unlock()
 			rf.applyCh <- msg
