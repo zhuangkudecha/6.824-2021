@@ -32,21 +32,28 @@ func (cf *MemoryConfigStateMachine) Move(shard, gid int) Err {
 }
 
 func (cf *MemoryConfigStateMachine) Query(num int) (Config, Err) {
-	if num == -1 || num >= len(cf.Configs) {
+	if num < 0 || num >= len(cf.Configs) {
 		return cf.Configs[len(cf.Configs)-1], OK
 	}
 	return cf.Configs[num], OK
 }
 
 // 需要尽量使shard 分配尽量均匀，并且产生较少的迁移
-func (cf *MemoryConfigStateMachine) Join(servers map[int][]string) Err {
+func (cf *MemoryConfigStateMachine) Join(groups map[int][]string) Err {
 	lastConfig := cf.Configs[len(cf.Configs)-1]
 	newConfig := Config{
 		Num:    len(cf.Configs),
 		Shards: lastConfig.Shards,
 		Groups: deepCopy(lastConfig.Groups),
 	}
-	// 将shard最多的迁移到shard最少的
+	for gid, servers := range groups {
+		if _, ok := newConfig.Groups[gid]; !ok {
+			newServers := make([]string, len(servers))
+			copy(newServers, servers)
+			newConfig.Groups[gid] = newServers
+		}
+	}
+	// 得到gid -> shard 的map[int][]int  不同的shard 可能指向同一个group， 因此 gid -> shard 是一对多的关系
 	s2g := Group2Shards(newConfig)
 	for {
 		source, target := GetGIDWithMaximumShards(s2g), GetGIDWithMinimumShards(s2g)
@@ -66,6 +73,7 @@ func (cf *MemoryConfigStateMachine) Join(servers map[int][]string) Err {
 	}
 	newConfig.Shards = newShards
 	cf.Configs = append(cf.Configs, newConfig)
+	DPrintf("Join: %v number of config: %d", newConfig, len(cf.Configs))
 	return OK
 }
 

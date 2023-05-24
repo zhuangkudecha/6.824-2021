@@ -32,13 +32,12 @@ type ShardCtrler struct {
 	stateMachine  ConfigStateMachine
 	lastOperation map[int64]OperationContext
 	notifyChans   map[int]chan *CommandReply
-	configs       []Config // indexed by config num
 }
 
 // rpc handler for client requests.
 func (sc *ShardCtrler) Command(args *CommandArgs, reply *CommandReply) {
-	sc.mu.Lock()
 	defer DPrintf("controller %d process requenst %v return response %v", sc.me, args, reply)
+	sc.mu.Lock()
 	// duplicate request return directily
 	if args.Op != OpQuery && sc.isDuplicateRequest(args.ClientId, args.CommandId) {
 		lastReponse := sc.lastOperation[args.ClientId].LastResponse
@@ -62,12 +61,12 @@ func (sc *ShardCtrler) Command(args *CommandArgs, reply *CommandReply) {
 	case result := <-ch:
 		reply.Err = result.Err
 		reply.Config = result.Config
-	case <-time.After(1000 * time.Millisecond):
+	case <-time.After(500 * time.Millisecond):
 		reply.Err = ErrTimeout
 	}
 	go func() {
 		sc.mu.Lock()
-		delete(sc.notifyChans, index)
+		sc.removeOutdatedChans(index)
 		sc.mu.Unlock()
 	}()
 }
@@ -124,7 +123,7 @@ func (sc *ShardCtrler) Raft() *raft.Raft {
 }
 
 func (sc *ShardCtrler) applier() {
-	for sc.Killed() == false {
+	for !sc.Killed() {
 		select {
 		// DPrintf("{Node %v} tries to apply message %v", sc.rf.Me(), message)
 		case msg := <-sc.applyCh:
@@ -139,18 +138,19 @@ func (sc *ShardCtrler) applier() {
 					response.Config = lastResponse.Config
 					response.Err = lastResponse.Err
 					DPrintf("Controller%d doesn't apply duplicate request %v", sc.me, command)
-					return
 				} else {
 					response = sc.applyLogToStateMachine(command)
 					if command.Op != OpQuery {
 						sc.lastOperation[command.ClientId] = OperationContext{MaxAppliedCommandId: command.CommandId, LastResponse: response}
 					}
+					DPrintf("Controller%d apply command %v and get response %v", sc.me, command, response)
 				}
 
 				// only notify related channel for currentTerm's log when node is leader
 				if currentTerm, isLeader := sc.rf.GetState(); isLeader && msg.CommandTerm == currentTerm {
 					ch := sc.getNotifyChan(msg.CommandIndex)
 					ch <- response
+					DPrintf("Controller %d send response to notify channel", sc.me)
 				}
 				sc.mu.Unlock()
 			} else {
@@ -175,7 +175,6 @@ func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister)
 		lastOperation: make(map[int64]OperationContext),
 		dead:          0,
 		notifyChans:   make(map[int]chan *CommandReply),
-		configs:       make([]Config, 1),
 		stateMachine:  NewMemoryStateConfigMachine(),
 		rf:            raft.Make(servers, me, persister, applyCh),
 	}

@@ -95,6 +95,7 @@ func TestBasic(t *testing.T) {
 	var gid1 int = 1
 	ck.Join(map[int][]string{gid1: []string{"x", "y", "z"}})
 	check(t, []int{gid1}, ck)
+	fmt.Printf("test join done...\n")
 	cfa[1] = ck.Query(-1)
 
 	var gid2 int = 2

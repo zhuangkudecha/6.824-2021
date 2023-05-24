@@ -7,6 +7,7 @@ package shardctrler
 import (
 	"crypto/rand"
 	"math/big"
+	"sync"
 	"time"
 
 	"6.824/labrpc"
@@ -18,6 +19,8 @@ type Clerk struct {
 	clientId   int64
 	commandId  int64
 	lastLeader int
+
+	mu *sync.Mutex
 }
 
 func nrand() int64 {
@@ -34,6 +37,7 @@ func MakeClerk(servers []*labrpc.ClientEnd) *Clerk {
 	ck.clientId = nrand()
 	ck.commandId = 0
 	ck.lastLeader = 0
+	ck.mu = &sync.Mutex{}
 	return ck
 }
 
@@ -77,6 +81,7 @@ func (ck *Clerk) Command(args *CommandArgs) Config {
 			continue
 		}
 		ck.commandId++
+		DPrintf("client %v send command %v to server %v, got response %v", ck.clientId, args, ck.lastLeader, response)
 		return response.Config
 	}
 }
